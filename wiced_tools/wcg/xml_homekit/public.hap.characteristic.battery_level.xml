@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2015 Cypress Semiconductor. All rights reserved. -->
+<Characteristic xsi:noNamespaceSchemaLocation="http://schemas.bluetooth.org/Documents/characteristic.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="HAP Battery Level" type="public.hap.characteristic.battery_level" uuid="91 52 76 bb 26 00 00 80 00 10 00 00 68 00 00 00">
+    <InformativeText>
+        <Abstract>
+            This characteristic describes the current level of the battery. This characteristic requires iOS 9.
+        </Abstract>
+        <Summary>
+            TODO: Summary
+        </Summary>
+        <Examples>
+            <Example>TODO: Example</Example>
+        </Examples>
+    </InformativeText>
+    <Value>
+        <Field name="Battery Level">
+            <InformativeText/>
+            <Requirement>Mandatory</Requirement>
+            <Format>uint8</Format>
+            <Minimum>0</Minimum>
+            <Maximum>100</Maximum>
+            <Step>1</Step>
+            <Unit>org.bluetooth.unit.percentage</Unit>
+        </Field>
+    </Value>
+    <Metadata>
+        <Descriptor name="HAP Characteristic Properties" type="public.hap.descriptor.hap_characteristic_properties">
+            <Requirement>Mandatory</Requirement>
+            <Properties>
+                <Read>Excluded</Read>
+                <Write>Excluded</Write>
+                <AdditionalAuthData>Excluded</AdditionalAuthData>
+                <TimedWriteProcedure>Excluded</TimedWriteProcedure>
+                <SecureRead>Mandatory</SecureRead>
+                <SecureWrite>Excluded</SecureWrite>
+                <InvisibleToUser>Excluded</InvisibleToUser>
+                <NotifyInConnected>Mandatory</NotifyInConnected>
+                <NotifyInDisconnected>Mandatory</NotifyInDisconnected>
+            </Properties>
+        </Descriptor>
+    </Metadata>
+</Characteristic>

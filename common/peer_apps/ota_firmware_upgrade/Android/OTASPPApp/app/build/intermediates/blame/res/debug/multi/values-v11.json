@@ -1,0 +1,66 @@
+[
+    {
+        "outputFile": "C:\\cygwin\\home\\annadats\\code\\master\\staging\\Wiced-SDK\\common\\peer_apps\\ota_firmware_upgrade\\Android\\OTASPPApp\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-v11\\values-v11.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 2,
+                    "startColumn": 4,
+                    "startOffset": 55,
+                    "endLine": 4,
+                    "endColumn": 12,
+                    "endOffset": 187
+                },
+                "from": {
+                    "file": "C:\\cygwin\\home\\annadats\\code\\master\\staging\\Wiced-SDK\\common\\peer_apps\\ota_firmware_upgrade\\Android\\OTASPPApp\\app\\src\\main\\res\\values-v11\\styles.xml",
+                    "position": {
+                        "startLine": 24,
+                        "startColumn": 4,
+                        "startOffset": 855,
+                        "endLine": 26,
+                        "endColumn": 12,
+                        "endOffset": 987
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 5,
+                    "startColumn": 4,
+                    "startOffset": 192,
+                    "endColumn": 102,
+                    "endOffset": 290
+                },
+                "from": {
+                    "file": "C:\\cygwin\\home\\annadats\\code\\master\\staging\\Wiced-SDK\\common\\peer_apps\\ota_firmware_upgrade\\Android\\OTASPPApp\\app\\src\\main\\res\\values-v11\\styles_devicepicker.xml",
+                    "position": {
+                        "startLine": 20,
+                        "startColumn": 4,
+                        "startOffset": 695,
+                        "endColumn": 103,
+                        "endOffset": 794
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 6,
+                    "startColumn": 4,
+                    "startOffset": 295,
+                    "endColumn": 72,
+                    "endOffset": 363
+                },
+                "from": {
+                    "file": "C:\\cygwin\\home\\annadats\\code\\master\\staging\\Wiced-SDK\\common\\peer_apps\\ota_firmware_upgrade\\Android\\OTASPPApp\\app\\src\\main\\res\\values-v11\\styles.xml",
+                    "position": {
+                        "startLine": 28,
+                        "startColumn": 4,
+                        "startOffset": 993,
+                        "endColumn": 73,
+                        "endOffset": 1062
+                    }
+                }
+            }
+        ]
+    }
+]

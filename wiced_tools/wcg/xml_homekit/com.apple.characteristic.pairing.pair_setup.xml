@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2014 Cypress Semiconductor. All rights reserved. -->
+<Characteristic xsi:noNamespaceSchemaLocation="http://schemas.bluetooth.org/Documents/characteristic.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="Pair Setup" type="com.apple.characteristic.pairing.pair_setup" uuid="91 52 76 bb 26 00 00 80 00 10 00 00 4c 00 00 00">
+  <InformativeText>
+    <Abstract>
+      Accessories accept reads/writes to this characteristic to perform password-based setup.
+    </Abstract>
+    <Summary>
+       TODO: Summary
+    </Summary>
+    <Examples>
+      <Example>TODO: Example</Example>
+    </Examples>
+  </InformativeText>
+  <Value>
+    <Field name="Pair Setup">
+      <InformativeText/>
+      <Requirement>Mandatory</Requirement>
+      <Format>TLV8</Format>
+    </Field>
+  </Value>
+</Characteristic>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2014 Cypress Semiconductor. All rights reserved. -->
+<Characteristic xsi:noNamespaceSchemaLocation="http://schemas.bluetooth.org/Documents/characteristic.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="Pairing Features" type="public.hap.characteristic.pairing.features" uuid="91 52 76 bb 26 00 00 80 00 10 00 00 4f 00 00 00">
+    <InformativeText>
+        <Abstract>
+            Pairing Features supported by the accessory.
+        </Abstract>
+        <Summary>
+            TODO: Summary
+        </Summary>
+        <Examples>
+            <Example>TODO: Example</Example>
+        </Examples>
+    </InformativeText>
+    <Value>
+        <Field name="Pairing Features">
+            <InformativeText/>
+            <Requirement>Mandatory</Requirement>
+            <Format>uint8</Format>
+            <BitField>
+                <Bit index="0" size="1" name="Pair Setup">
+                    <Enumerations>
+                        <Enumeration key="0" value="Does Not Support HAP Pairing. Disallowed." />
+                        <Enumeration key="1" value="Supports HAP Pairing. Required." />
+                    </Enumerations>
+                </Bit>
+                <ReservedForFutureUse index="1" size="7" />
+            </BitField>
+        </Field>
+    </Value>
+    <Metadata>
+        <Descriptor name="HAP Characteristic Properties" type="public.hap.descriptor.hap_characteristic_properties">
+            <Requirement>Mandatory</Requirement>
+            <Properties>
+                <Read>Mandatory</Read>
+                <Write>Excluded</Write>
+                <AdditionalAuthData>Excluded</AdditionalAuthData>
+                <TimedWriteProcedure>Excluded</TimedWriteProcedure>
+                <SecureRead>Excluded</SecureRead>
+                <SecureWrite>Excluded</SecureWrite>
+                <InvisibleToUser>Excluded</InvisibleToUser>
+                <NotifyInConnected>Excluded</NotifyInConnected>
+                <NotifyInDisconnected>Excluded</NotifyInDisconnected>
+            </Properties>
+        </Descriptor>
+    </Metadata>
+</Characteristic>

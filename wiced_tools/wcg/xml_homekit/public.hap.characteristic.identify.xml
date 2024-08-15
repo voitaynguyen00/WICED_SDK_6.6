@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2014 Cypress Semiconductor. All rights reserved. -->
+<Characteristic xsi:noNamespaceSchemaLocation="http://schemas.bluetooth.org/Documents/characteristic.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="Identify" type="public.hap.characteristic.identify" uuid="91 52 76 bb 26 00 00 80 00 10 00 00 14 00 00 00">
+  <InformativeText>
+    <Abstract>
+      This characteristic is used to cause the accessory to run its identify routine.
+    </Abstract>
+    <Summary>
+       TODO: Summary
+    </Summary>
+    <Examples>
+      <Example>TODO: Example</Example>
+    </Examples>
+  </InformativeText>
+  <Value>
+    <Field name="Identify">
+      <InformativeText/>
+      <Requirement>Mandatory</Requirement>
+      <Format>boolean</Format>
+      <Enumerations>
+        <Enumeration key="0" value="Off" />
+        <Enumeration key="1" value="On" />
+      </Enumerations>
+    </Field>
+  </Value>
+    <Metadata>
+        <Descriptor name="HAP Characteristic Properties" type="public.hap.descriptor.hap_characteristic_properties">
+            <Requirement>Mandatory</Requirement>
+            <Properties>
+                <Read>Mandatory</Read>
+                <Write>Excluded</Write>
+                <AdditionalAuthData>Excluded</AdditionalAuthData>
+                <TimedWriteProcedure>Excluded</TimedWriteProcedure>
+                <SecureRead>Excluded</SecureRead>
+                <SecureWrite>Excluded</SecureWrite>
+                <InvisibleToUser>Excluded</InvisibleToUser>
+                <NotifyInConnected>Excluded</NotifyInConnected>
+                <NotifyInDisconnected>Excluded</NotifyInDisconnected>
+            </Properties>
+        </Descriptor>
+    </Metadata>
+</Characteristic>

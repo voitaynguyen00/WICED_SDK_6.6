@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2015 Cypress Semiconductor. All rights reserved. -->
+<Characteristic xsi:noNamespaceSchemaLocation="http://schemas.bluetooth.org/Documents/characteristic.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="Target Position" type="public.hap.characteristic.position.target" uuid="91 52 76 bb 26 00 00 80 00 10 00 00 7c 00 00 00">
+    <InformativeText>
+        <Abstract>
+            This characteristic describes the target position of accessories. This characteristic can be used with doors, windows, awnings, or window coverings. For windows and doors, a value of 0 indicates that a window (or door) is fully closed and a value of 100 indicates a fully open position. For blinds, a value of 100 indicates a position that allows most light while a value of 0 indicates a position that permits the least light. For awnings and shades, a value of 0 indicates a position that provides little or no shade while a value of 100 indicates a position that provides the most shade. This characteristic requires iOS 9.
+        </Abstract>
+        <Summary>
+            TODO: Summary
+        </Summary>
+        <Examples>
+            <Example>TODO: Example</Example>
+        </Examples>
+    </InformativeText>
+    <Value>
+        <Field name="Target Position">
+            <InformativeText/>
+            <Requirement>Mandatory</Requirement>
+            <Format>uint8</Format>
+            <Minimum>0</Minimum>
+            <Maximum>100</Maximum>
+            <Step>1</Step>
+            <Unit>org.bluetooth.unit.percentage</Unit>
+        </Field>
+    </Value>
+    <Metadata>
+        <Descriptor name="HAP Characteristic Properties" type="public.hap.descriptor.hap_characteristic_properties">
+            <Requirement>Mandatory</Requirement>
+            <Properties>
+                <Read>Excluded</Read>
+                <Write>Excluded</Write>
+                <AdditionalAuthData>Optional</AdditionalAuthData>
+                <TimedWriteProcedure>Optional</TimedWriteProcedure>
+                <SecureRead>Mandatory</SecureRead>
+                <SecureWrite>Mandatory</SecureWrite>
+                <InvisibleToUser>Excluded</InvisibleToUser>
+                <NotifyInConnected>Mandatory</NotifyInConnected>
+                <NotifyInDisconnected>Mandatory</NotifyInDisconnected>
+            </Properties>
+        </Descriptor>
+    </Metadata>
+</Characteristic>

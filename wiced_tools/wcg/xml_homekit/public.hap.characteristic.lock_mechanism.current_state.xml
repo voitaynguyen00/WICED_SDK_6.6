@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2014 Cypress Semiconductor. All rights reserved. -->
+<Characteristic xsi:noNamespaceSchemaLocation="http://schemas.bluetooth.org/Documents/characteristic.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="Lock Current State" type="public.hap.characteristic.lock_mechanism.current_state" uuid="91 52 76 bb 26 00 00 80 00 10 00 00 1D 00 00 00">
+  <InformativeText>
+    <Abstract>
+      This characteristic represents the current state of the physical security mechanism (e.g. deadbolt).
+    </Abstract>
+    <Summary>
+       TODO: Summary
+    </Summary>
+    <Examples>
+      <Example>TODO: Example</Example>
+    </Examples>
+  </InformativeText>
+  <Value>
+    <Field name="Lock Current State">
+      <InformativeText/>
+      <Requirement>Mandatory</Requirement>
+      <Format>uint8</Format>
+      <Minimum>0</Minimum>
+      <Maximum>3</Maximum>
+            <Step>1</Step>
+            <Enumerations>
+        <Enumeration key="0" value="Unsecured" />
+        <Enumeration key="1" value="Secured" />
+        <Enumeration key="2" value="Jammed" />
+        <Enumeration key="3" value="Unknown" />
+      </Enumerations>
+    </Field>
+  </Value>
+    <Metadata>
+        <Descriptor name="HAP Characteristic Properties" type="public.hap.descriptor.hap_characteristic_properties">
+            <Requirement>Mandatory</Requirement>
+            <Properties>
+                <Read>Excluded</Read>
+                <Write>Excluded</Write>
+                <AdditionalAuthData>Excluded</AdditionalAuthData>
+                <TimedWriteProcedure>Excluded</TimedWriteProcedure>
+                <SecureRead>Mandatory</SecureRead>
+                <SecureWrite>Excluded</SecureWrite>
+                <InvisibleToUser>Excluded</InvisibleToUser>
+                <NotifyInConnected>Mandatory</NotifyInConnected>
+                <NotifyInDisconnected>Mandatory</NotifyInDisconnected>
+            </Properties>
+        </Descriptor>
+    </Metadata>
+</Characteristic>

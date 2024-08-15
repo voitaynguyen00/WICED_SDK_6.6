@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2014 Cypress Semiconductor. All rights reserved. -->
+<Characteristic xsi:noNamespaceSchemaLocation="http://schemas.bluetooth.org/Documents/characteristic.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="Heating Threshold Temperature" type="public.hap.characteristic.temperature.heating_threshold" uuid="91 52 76 bb 26 00 00 80 00 10 00 00 12 00 00 00">
+  <InformativeText>
+    <Abstract>
+      This characteristic describes the heating threshold in Celsius for devices that support simultaneous heating and cooling. The value of this characteristic represents the 'minimum temperature' that must be reached before heating is turned on.
+
+      <p>For example, if the Heating/Cooling Mode is set to "Auto" and the current temperature goes below the 'minimum temperature', then the heating mechanism should turn on to increase the current temperature until the 'minimum temperature' is reached.</p>
+    </Abstract>
+    <Summary>
+       TODO: Summary
+    </Summary>
+    <Examples>
+      <Example>TODO: Example</Example>
+    </Examples>
+  </InformativeText>
+  <Value>
+    <Field name="Heating Threshold Temperature">
+      <InformativeText/>
+      <Requirement>Mandatory</Requirement>
+      <Format>float32</Format>
+      <Minimum>0</Minimum>
+      <Maximum>25</Maximum>
+      <Step>0.1</Step>
+            <Unit>org.bluetooth.unit.thermodynamic_temperature.degree_celsius</Unit>
+    </Field>
+  </Value>
+    <Metadata>
+        <Descriptor name="HAP Characteristic Properties" type="public.hap.descriptor.hap_characteristic_properties">
+            <Requirement>Mandatory</Requirement>
+            <Properties>
+                <Read>Excluded</Read>
+                <Write>Excluded</Write>
+                <AdditionalAuthData>Optional</AdditionalAuthData>
+                <TimedWriteProcedure>Optional</TimedWriteProcedure>
+                <SecureRead>Mandatory</SecureRead>
+                <SecureWrite>Mandatory</SecureWrite>
+                <InvisibleToUser>Excluded</InvisibleToUser>
+                <NotifyInConnected>Mandatory</NotifyInConnected>
+                <NotifyInDisconnected>Mandatory</NotifyInDisconnected>
+            </Properties>
+        </Descriptor>
+    </Metadata>
+</Characteristic>

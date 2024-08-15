@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Label="UserMacros">
+    <SWIG_EXT_MODULE>sdl</SWIG_EXT_MODULE>
+    <EXTENSION>extension</EXTENSION>
+    <Prefix>_</Prefix>
+  </PropertyGroup>
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.40219.1</_ProjectFileVersion>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(BOOST_ROOT);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <BuildMacro Include="SWIG_EXT_MODULE">
+      <Value>$(SWIG_EXT_MODULE)</Value>
+    </BuildMacro>
+    <BuildMacro Include="EXTENSION">
+      <Value>$(EXTENSION)</Value>
+    </BuildMacro>
+    <BuildMacro Include="Prefix">
+      <Value>$(Prefix)</Value>
+    </BuildMacro>
+  </ItemGroup>
+</Project>

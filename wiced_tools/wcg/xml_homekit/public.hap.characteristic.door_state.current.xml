@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2014 Cypress Semiconductor. All rights reserved. -->
+<Characteristic xsi:noNamespaceSchemaLocation="http://schemas.bluetooth.org/Documents/characteristic.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="Current Door State" type="public.hap.characteristic.door_state.current" uuid="91 52 76 bb 26 00 00 80 00 10 00 00 0e 00 00 00">
+  <InformativeText>
+    <Abstract>
+      This characteristic describes the current state of a door.
+    </Abstract>
+    <Summary>
+       TODO: Summary
+    </Summary>
+    <Examples>
+      <Example>TODO: Example</Example>
+    </Examples>
+  </InformativeText>
+  <Value>
+    <Field name="Current Door State">
+      <InformativeText/>
+      <Requirement>Mandatory</Requirement>
+      <Format>uint8</Format>
+      <Minimum>0</Minimum>
+      <Maximum>4</Maximum>
+      <Step>1</Step>
+            <Enumerations>
+        <Enumeration key="0" value="Open. The door is fully open." />
+        <Enumeration key="1" value="Closed. The door is fully closed." />
+        <Enumeration key="2" value="Opening. The door is actively opening." />
+        <Enumeration key="3" value="Closing. The door is actively closing." />
+        <Enumeration key="4" value="Stopped. The door is not moving, and it is not fully open nor fully closed." />
+      <ReservedForFutureUse start="5" end="255" />
+            </Enumerations>
+    </Field>
+  </Value>
+    <Metadata>
+        <Descriptor name="HAP Characteristic Properties" type="public.hap.descriptor.hap_characteristic_properties">
+            <Requirement>Mandatory</Requirement>
+            <Properties>
+                <Read>Excluded</Read>
+                <Write>Excluded</Write>
+                <AdditionalAuthData>Excluded</AdditionalAuthData>
+                <TimedWriteProcedure>Excluded</TimedWriteProcedure>
+                <SecureRead>Mandatory</SecureRead>
+                <SecureWrite>Excluded</SecureWrite>
+                <InvisibleToUser>Excluded</InvisibleToUser>
+                <NotifyInConnected>Mandatory</NotifyInConnected>
+                <NotifyInDisconnected>Mandatory</NotifyInDisconnected>
+            </Properties>
+        </Descriptor>
+    </Metadata>
+</Characteristic>

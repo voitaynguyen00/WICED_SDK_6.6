@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2014 Cypress Semiconductor. All rights reserved. -->
+<Characteristic xsi:noNamespaceSchemaLocation="http://schemas.bluetooth.org/Documents/characteristic.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="Service Instance" type="public.hap.characteristic.service_instance" uuid="d1 a0 83 50 00 aa d3 87 17 48 59 a7 5d e9 04 e6">
+  <InformativeText>
+    <Abstract>
+            This characteristic is used to identify instances of services used with HomeKit. The value of this characteristic is a 16-bit unsigned integer encoded as 2-byte little endian integer.
+        </Abstract>
+    <Summary>
+            The value must support always being read in the clear, i.e. with and without a security session.
+        </Summary>
+    <Examples>
+      <Example>TODO: Example</Example>
+    </Examples>
+  </InformativeText>
+  <Value>
+    <Field name="Service Instance">
+      <InformativeText/>
+      <Requirement>Mandatory</Requirement>
+      <Format>uint16</Format>
+    </Field>
+  </Value>
+</Characteristic>

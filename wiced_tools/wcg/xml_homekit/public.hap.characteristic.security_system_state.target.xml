@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2015 Cypress Semiconductor. All rights reserved. -->
+<Characteristic xsi:noNamespaceSchemaLocation="http://schemas.bluetooth.org/Documents/characteristic.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="Security System Target State" type="public.hap.characteristic.security_system_state.target" uuid="91 52 76 bb 26 00 00 80 00 10 00 00 67 00 00 00">
+    <InformativeText>
+        <Abstract>
+            This characteristic describes the target state of a security system. This characteristic requires iOS 9.
+        </Abstract>
+        <Summary>
+            TODO: Summary
+        </Summary>
+        <Examples>
+            <Example>TODO: Example</Example>
+        </Examples>
+    </InformativeText>
+    <Value>
+        <Field name="Security System Target State">
+            <InformativeText/>
+            <Requirement>Mandatory</Requirement>
+            <Format>uint8</Format>
+            <Minimum>0</Minimum>
+            <Maximum>3</Maximum>
+            <Step>1</Step>
+            <Enumerations>
+                <Enumeration key="0" value="Stay Arm. The home is occupied and the residents are active. e.g. morning or evenings" />
+                <Enumeration key="1" value="Away Arm. THe home is unoccupied" />
+                <Enumeration key="2" value="Night Arm. The home is occupied and the residents are sleeping" />
+                <Enumeration key="3" value="Disarm" />
+                <ReservedForFutureUse start="4" end="255" />
+            </Enumerations>
+        </Field>
+    </Value>
+    <Metadata>
+        <Descriptor name="HAP Characteristic Properties" type="public.hap.descriptor.hap_characteristic_properties">
+            <Requirement>Mandatory</Requirement>
+            <Properties>
+                <Read>Excluded</Read>
+                <Write>Excluded</Write>
+                <AdditionalAuthData>Optional</AdditionalAuthData>
+                <TimedWriteProcedure>Optional</TimedWriteProcedure>
+                <SecureRead>Mandatory</SecureRead>
+                <SecureWrite>Mandatory</SecureWrite>
+                <InvisibleToUser>Excluded</InvisibleToUser>
+                <NotifyInConnected>Mandatory</NotifyInConnected>
+                <NotifyInDisconnected>Mandatory</NotifyInDisconnected>
+            </Properties>
+        </Descriptor>
+    </Metadata>
+</Characteristic>

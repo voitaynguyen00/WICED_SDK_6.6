@@ -1,0 +1,105 @@
+
+
+## -----------------------------------------------------------------------------------------------
+## COMPILER DEFINITIONS
+## -----------------------------------------------------------------------------------------------
+GCC = gcc
+GXX = g++
+SWIG = swig
+AR = ar
+STRIP = strip
+
+## -----------------------------------------------------------------------------------------------
+## OS DETECTION
+## -----------------------------------------------------------------------------------------------
+OS = $(shell uname -s)
+OS_LC = $(shell echo $(OS)|tr A-Z a-z)
+OS_UC = $(shell echo $(OS)|tr [:lower:] [:upper:])
+OS_DEF = $(shell echo $(OS_UC)|tr -d [-_])
+
+
+## -----------------------------------------------------------------------------------------------
+## GENERIC DEFINES
+## -----------------------------------------------------------------------------------------------
+DEFINES += -D$(OS_DEF) -D_GNU_SOURCE
+
+ifdef PROFILE_ON
+	DEFINES += -DPROFILE
+endif
+
+ifdef VDEBUG_ON
+	DEFINES += -DVDEBUG
+else
+	ifdef DEBUG_ON
+		DEFINES += -DDEBUG
+	else
+		DEFINES += -DNDEBUG
+	endif
+endif
+
+BUILD_SYSNAME = $(shell uname -s)
+
+BUILD_ARCH = $(shell uname -m)
+ifeq ($(BUILD_ARCH),amd64)
+	BUILD_ARCH = x86_64
+endif
+ifeq ($(BUILD_ARCH),i686)
+	ARCH = -march=i686
+	DBG_FMT = -gstabs+
+endif
+ifeq ($(BUILD_ARCH),x86_64)
+##	ARCH = -m64 -march=x86-64
+	DBG_FMT = -gstabs+
+endif
+
+## -----------------------------------------------------------------------------------------------
+## DIRECTIVES
+## -----------------------------------------------------------------------------------------------
+
+# recursively look for directories to make with the current target
+.make_subdirs:$(SUBDIRS)
+	if test -n "$(SUBDIRS)"; then\
+		for i in $(SUBDIRS); do \
+			if test -e "$$i/makefile"; \
+				then $(MAKE) -C $$i $(MAKECMDGOALS); \
+			fi; \
+		done \
+	fi;
+
+
+.bindir:
+	mkdir -p $(OBJ_DIR)
+
+## -----------------------------------------------------------------------------------------------
+## COMPILER SPECIFIC VARIABLES AND RULES
+## -----------------------------------------------------------------------------------------------
+
+WARN 	= -Wall -Wno-strict-aliasing
+OPTS 	= -Os -ftemplate-depth-300 -fno-inline
+ifeq ($(BUILD_SYSNAME),Linux)
+	OPTS += -std=gnu++11
+endif
+DBG 	= $(if $(PROFILE_ON), -g -pg, -g)
+CCOPTS 	= $(if $(DEBUG_ON), $(DBG), $(OPTS)) -fPIC
+CXXOPTS = $(if $(DEBUG_ON), $(DBG) $(DBG_FMT), $(OPTS)) -fPIC
+LDLINKS = $(LIBEXT) ## -pthread
+LDRPATH = -Wl,-rpath-link=
+SHARED 	= -shared -nostartfiles $(LDFLAGS)
+SHEXT 	= so
+
+
+CFLAGS 	= $(ARCH) $(CCOPTS) $(WARN) $(DEFINES) $(INCLUDES) $(ADDL_CFLAGS)
+CXXFLAGS= $(ARCH) $(CXXOPTS) $(WARN) $(DEFINES) $(INCLUDES) $(ADDL_CXXFLAGS)
+RPATH   = $(call RPATHLIST,$(RUNTIME_PATHS))
+LDFLAGS = $(ARCH) $(LDLINKS)
+ARFLAGS = -rucs
+
+$(OBJ_DIR)/%.o: %.c
+	@echo " "
+	$(GCC) -c $(CFLAGS) -o $@ $<
+
+$(OBJ_DIR)/%.o: %.cpp
+	@echo " "
+	$(GXX) -c $(CXXFLAGS) -o $@ $<
+
+

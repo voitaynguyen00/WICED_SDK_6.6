@@ -1,0 +1,90 @@
+ifeq ($(OS),Windows_NT)
+dots = :
+  cross_abspath = $(if $(findstring $(dots),$(1)),$(1),$(abspath $(1)))
+else
+  cross_abspath = $(abspath $1)
+endif
+
+CC_NAME ?= gcc
+
+ifeq ($(OS),Windows_NT)
+  RM		= del
+  RMDIR   	= rd /s /q
+  MAKEDIR 	= mkdir
+  fix_slash  = $(subst /,\,$1)
+  QUIET=>nul 2>nul & exit 0
+else
+  RM      = rm -f
+  MAKEDIR = mkdir -p
+  RMDIR   = rm -rf
+  fix_slash  = $1
+  QUIET=> /dev/null 2>&1 ; exit 0
+endif
+
+fix_pref = $(if $(1),$(1)-,$(1))
+fix_path = $(call fix_slash,$(if $(1),$(call cross_abspath,$(1))/$(call fix_pref,$(2)),$(call fix_pref,$(2))))
+
+AS      = $(call fix_path,$(GCC_BIN),$(GCC_PREFIX))as
+AR      = $(call fix_path,$(GCC_BIN),$(GCC_PREFIX))ar
+CC      = $(call fix_path,$(GCC_BIN),$(GCC_PREFIX))$(CC_NAME)
+CPP     = $(call fix_path,$(GCC_BIN),$(GCC_PREFIX))g++
+LD      = $(call fix_path,$(GCC_BIN),$(GCC_PREFIX))gcc
+OBJCOPY = $(call fix_path,$(GCC_BIN),$(GCC_PREFIX))objcopy
+OBJDUMP = $(call fix_path,$(GCC_BIN),$(GCC_PREFIX))objdump
+SIZE    = $(call fix_path,$(GCC_BIN),$(GCC_PREFIX))size
+
+
+$(info GCC: $(GCC_PREFIX))
+$(info GCC: $(GCC_BIN))
+$(info GCC: $(CC))
+
+get_make_path = $(dir $(call, cross_abspath,$(lastword $(MAKEFILE_LIST))))/
+SDK_PATH ?= $(call get_make_path)
+SDK_IMPL ?= $(abspath $(SDK_PATH)/../$(PLATFORM)/acnsdkc/)
+
+SDK_SRC += $(wildcard $(SDK_PATH)/src/*.c)
+SDK_SRC += $(wildcard $(SDK_PATH)/src/sys/*.c)
+SDK_SRC += $(wildcard $(SDK_PATH)/src/data/*.c)
+SDK_SRC += $(wildcard $(SDK_PATH)/src/ntp/*.c)
+SDK_SRC += $(wildcard $(SDK_PATH)/src/http/*.c)
+ifeq ($(CJSON),yes)
+SDK_SRC += $(wildcard $(SDK_PATH)/src/json/*.c)
+endif
+SDK_SRC += $(wildcard $(SDK_PATH)/src/bsd/*.c)
+SDK_SRC += $(wildcard $(SDK_PATH)/src/time/*.c)
+SDK_SRC += $(wildcard $(SDK_PATH)/src/arrow/*.c)
+SDK_SRC += $(wildcard $(SDK_PATH)/src/arrow/**/*.c)
+SDK_SRC += $(wildcard $(SDK_PATH)/src/arrow/api/**/*.c)
+SDK_SRC += $(wildcard $(SDK_PATH)/src/mqtt/client/src/*.c)
+SDK_SRC += $(wildcard $(SDK_PATH)/src/mqtt/packet/src/*.c)
+
+PREV_SDK_INCLUDES := ${SDK_INCLUDES}
+
+SDK_INCLUDES := \
+    -I$(SDK_PATH) \
+    -I$(SDK_PATH)/include \
+    -I$(SDK_PATH)/src \
+    -I$(SDK_IMPL)
+
+ifneq ($(PLATFORM),)
+CC_SYMBOLS += -D__$(PLATFORM)__
+endif
+
+PRIV_INC = $(SDK_PATH)/private.h
+
+ifeq ($(OS),Windows_NT)
+  file_exist = $(shell if exist $(1) (echo yes) else (echo no))
+else
+  file_exist = $(shell if [ -e $(PRIV_INC) ]; then echo yes; else echo no; fi)
+endif
+
+GET_VERSION_BIN=__get_version
+GET_VERSION=gcc $(SDK_PATH)/helper/__g.c -o $(GET_VERSION_BIN) -I$(SDK_PATH)/include -I$(SDK_PATH) -U__linux__ -D__${PLATFORM}__
+
+GET_SETTINGS_BIN=__get_settings
+GET_SETTINGS=gcc $(SDK_PATH)/helper/__dev.c -o $(GET_SETTINGS_BIN) -I$(SDK_PATH)/include -I$(SDK_PATH) -U__linux__ -D__${PLATFORM}__
+
+CHECK_SETTINGS_BIN=__check_settings
+CHECK_SETTINGS=gcc $(SDK_PATH)/helper/__set.c -o $(CHECK_SETTINGS_BIN) -I$(SDK_PATH) -U__linux__ -D__${PLATFORM}__
+
+SDK_INCLUDES += ${PREV_SDK_INCLUDES}

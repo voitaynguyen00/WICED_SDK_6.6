@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2014 Cypress Semiconductor. All rights reserved. -->
+<Characteristic xsi:noNamespaceSchemaLocation="http://schemas.bluetooth.org/Documents/characteristic.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="Target Temperature" type="public.hap.characteristic.temperature.target" uuid="91 52 76 bb 26 00 00 80 00 10 00 00 35 00 00 00">
+  <InformativeText>
+    <Abstract>
+      This characteristic describes the target temperature in Celsius that the device is actively attempting to reach. For example, a thermostat cooling a room to "75" degrees Fahrenheit would set the target temperature value to "23.9".
+    </Abstract>
+    <Summary>
+       TODO: Summary
+    </Summary>
+    <Examples>
+      <Example>TODO: Example</Example>
+    </Examples>
+  </InformativeText>
+  <Value>
+    <Field name="Target Temperature">
+      <InformativeText/>
+      <Requirement>Mandatory</Requirement>
+      <Format>float32</Format>
+      <Minimum>10</Minimum>
+      <Maximum>38</Maximum>
+            <Step>0.1</Step>
+            <Unit>org.bluetooth.unit.thermodynamic_temperature.degree_celsius</Unit>
+    </Field>
+  </Value>
+    <Metadata>
+        <Descriptor name="HAP Characteristic Properties" type="public.hap.descriptor.hap_characteristic_properties">
+            <Requirement>Mandatory</Requirement>
+            <Properties>
+                <Read>Excluded</Read>
+                <Write>Excluded</Write>
+                <AdditionalAuthData>Optional</AdditionalAuthData>
+                <TimedWriteProcedure>Optional</TimedWriteProcedure>
+                <SecureRead>Mandatory</SecureRead>
+                <SecureWrite>Mandatory</SecureWrite>
+                <InvisibleToUser>Excluded</InvisibleToUser>
+                <NotifyInConnected>Mandatory</NotifyInConnected>
+                <NotifyInDisconnected>Mandatory</NotifyInDisconnected>
+            </Properties>
+        </Descriptor>
+    </Metadata>
+</Characteristic>

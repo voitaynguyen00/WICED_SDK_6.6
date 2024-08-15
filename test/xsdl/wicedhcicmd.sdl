@@ -1,0 +1,478 @@
+package HCI;
+
+/** @file
+ *
+ * HCI Control Protocol Definitions
+ *
+ * This file provides definitions for HCI Control Interface between an MCU
+ * and hci_control application running on 20706
+ */
+
+/* 0 - Public address; 1 - Random address 
+enum AddrType
+{
+    AddrTypePublic
+    ,AddrTypeRandom
+};
+*/
+
+/* Packets exchanged over the UART between MCU and hci_control application contain 5 byte header
+ * -------------------------------------------------------------------------------------------------------------
+ * |  Packet Type(25)      | Command Code          |    Group Code       | Packet Length (low byte, high byte) |
+ * -------------------------------------------------------------------------------------------------------------
+ */
+
+/*
+ * Packet group codes
+enum PacketGroup
+{
+    Device
+    ,LE
+    ,GATT
+    ,HF
+    ,SPP
+    ,Audio
+    ,HIDD
+    ,AVRC
+    ,TEST
+    ,AIO
+    ,MISC=0xFF
+};
+ */
+
+abstract structure WicedPacket
+{
+    required uint8  PacketType = [25];
+    required uint8  Command;
+    required uint8  Group;
+    required uint16 Length;
+};
+
+/*
+ *********** General purpose commands
+ */
+abstract structure CommandDevice extends WicedPacket
+{
+    option Group = [0];
+};
+
+
+structure CommandDeviceReset extends CommandDevice
+{
+    option Command  = [1];
+    option Length   = [0];
+};
+
+structure CommandDeviceTraceEnable extends CommandDevice
+{
+    option Command  = [2];
+    option Length   = [2];
+
+    required uint8 Enable;  /* TRUE-enable, FALSE-disable */
+    required uint8 UART;    /* 1- WICED_ROUTE_DEBUG_TO_WICED_UART */
+};
+
+structure CommandDeviceSetLocalBDA extends CommandDevice
+{
+    option Command  = [3];
+    option Length   = [6];
+
+    required uint8 bda[6];  /* BT address */
+};
+
+structure CommandDeviceSetBaudRate extends CommandDevice
+{
+    option Command  = [4];
+    option Length   = [4];
+
+    required uint32 BaudRate;
+};
+
+structure CommandDevicePushNvramData extends CommandDevice
+{
+    option Command  = [5];
+    option Length   = [init(2)];
+
+    required uint16 NvramId;
+    required uint8  Data[Length-2];
+};
+
+structure CommandDeviceDeleteNvramData extends CommandDevice
+{
+    option Command  = [6];
+    option Length   = [2];
+
+    required uint16 NvramId;
+};
+
+/* 0 - Start BR/EDR Discovery; 1 - Stop BR/EDR Discovery 
+enum CommandDeviceInquiry_Cmd
+{
+    StartBrEdrDiscovery = 0
+    ,StopBrEdrDiscovery
+};
+*/
+
+structure CommandDeviceInquiry extends CommandDevice
+{
+    option Command  = [7];
+    option Length   = [1];
+
+    required uint8  Cmd;    /* 1 - Start BR/EDR Discovery; 0 - Stop BR/EDR Discovery */
+};
+
+structure CommandDeviceSetVisibility extends CommandDevice
+{
+    option Command  = [8];
+    option Length   = [2];
+
+    required uint8  Discoverability;    /* 0 - Non Discoverable; 1 - Discoverable */
+    required uint8  Connectability;    /* 0 - Non Connectable;  1 - Connectable */
+};
+
+/* Set Pairing Mode */
+structure CommandDeviceSetPairingMode extends CommandDevice
+{
+    option Command  = [9];
+    option Length   = [1];
+
+    required uint8  PairingMode;    /* 0 - Not pairable; 1 - Pairable */
+};
+
+/*
+ *********** Serial Port Profile Commands
+ * Define commands sent to the Serial Port profile
+ */
+abstract structure CommandSerialPort extends WicedPacket
+{
+    option Group = [4];
+};
+	
+/* SPP Connect */
+structure CommandSPPConnect extends CommandSerialPort
+{
+    option Command  = [1];
+    option Length   = [6];
+
+    required uint8  bda[6];  /* BT address */
+};
+	
+/* SPP Disonnect */
+structure CommandSPPDisconnect extends CommandSerialPort
+{
+    option Command  = [2];
+    option Length   = [2];
+
+    required uint16  connection_handle;
+};
+	
+/* SPP Data */
+structure CommandSPPData extends CommandSerialPort
+{
+    option Command  = [3];
+    option Length   = [init(2)];
+
+    required uint16  connection_handle;
+    required uint8   data[Length-2];	
+};
+
+/*
+ *********** LE Commands
+ * Define commands sent to the GAP/GATT implementation on 20706
+ */
+abstract structure CommandLe extends WicedPacket
+{
+    option Group = [1];
+};
+
+/* 0 - Stop Scan; 1 - Start Scan 
+enum CommandLeScan_Cmd
+{
+    CommandLeScanStop
+    ,CommandLeScanStart
+};
+*/
+
+/* start scan */
+structure CommandLeScan extends CommandLe
+{
+    option Command  = [1];
+    option Length   = [2];
+
+    required uint8  Cmd;    /* 0 - Stop Scan; 1 - Start Scan */
+    required uint8  FltrDup; /* 0 - Do not filter duplicate adv; 1 - Filter duplicate adv  */
+};
+
+/* 0 - Stop Advertisements; 1 - Start Advertisements 
+enum CommandLeAdvertise_Cmd
+{
+    CommandLeAdvertiseStop
+    ,CommandLeAdvertiseStart
+};
+*/
+
+/* start advertisements */
+structure CommandLeAdvertise extends CommandLe
+{
+    option Command  = [2];
+    option Length   = [1];
+
+    required uint8  Cmd;    /* 0 - Stop Advertisements; 1 - Start Advertisements */
+};
+
+/* connect to peer */
+structure CommandLeConnect extends CommandLe
+{
+    option Command  = [3];
+    option Length   = [7];
+
+    required uint8      AddrType;   /* 0 - Public address; 1 - Random address */
+    required uint8      bda[6];     /* BT address */
+};
+
+/* cancel connect */
+structure CommandLeCancelConnect extends CommandLe
+{
+    option Command  = [4];
+    option Length   = [7];
+
+    required uint8      AddrType;   /* 0 - Public address; 1 - Random address */
+    required uint8      bda[6];     /* BT address */
+};
+
+/* disconnect */
+structure CommandLeDisconnect extends CommandLe
+{
+    option Command  = [5];
+    option Length   = [2];
+
+    required uint16 connection_handle;
+};
+
+/*
+ *********** GATT Commands
+ * Define commands sent to the GATT implementation on 20706
+ */
+abstract structure CommandGatt extends WicedPacket
+{
+    option Group = [2];
+};
+
+/* discover Services */
+structure CommandGattDiscoverServices extends CommandGatt
+{
+    option Command  = [1];
+    option Length   = [6];
+
+    required uint16 connection_handle;    /* Connection Handle */
+    required uint16 start_handle;         /* handle */
+    required uint16 end_handle;           /* handle */
+};
+
+/* discover Characteristics */
+structure CommandGattDiscoverCharacteristics extends CommandGatt
+{
+    option Command  = [2];
+    option Length   = [6];
+
+    required uint16 connection_handle;     /* Connection Handle */
+    required uint16 start_handle;          /* handle */
+    required uint16 end_handle;            /* handle */
+};
+
+/* read a Characteristic */
+structure CommandGattReadCharacteristic extends CommandGatt
+{
+    option Command  = [4];
+    option Length   = [4];
+
+    required uint16 connection_handle;     /* Connection Handle */
+    required uint16 characteristic_handle; /* characteristic handle */
+};
+
+/* write Characteristics */
+structure CommandGattWriteCharacteristic extends CommandGatt
+{
+    option Command  = [6];
+    option Length   = [init(4)];
+    required uint16 connection_handle;     /* Connection Handle */
+    required uint16 characteristic_handle; /* handle */
+    required uint8 data[Length - 4];       /* data */
+};
+
+/* write request Characteristics */
+structure CommandGattWriteReqCharacteristic extends CommandGatt
+{
+    option Command  = [7];
+    option Length   = [init(4)];
+    required uint16 connection_handle;     /* Connection Handle */
+    required uint16 characteristic_handle; /* handle */
+    required uint8  data[Length - 4];       /* data */
+};
+
+
+
+/*
+ *********** Audio Profile Commands
+ * Define commands sent to the Audio profile
+ */
+abstract structure CommandAudio extends WicedPacket
+{
+    option Group = [5];
+};
+
+/*
+enum CommandAudioConnect_Route
+{
+    i2s = 0
+    ,file
+    ,sine
+};
+
+enum CommandAudioConnect_Freq
+{
+    kHz16=0
+    ,kHz32
+    ,kHz44_1
+    ,kHz48
+};
+
+enum CommandAudioConnect_Mode
+{
+    Mono = 0
+    ,Stereo
+};
+*/
+
+/* Audio connect to sink */
+structure CommandAudioConnect extends CommandAudio
+{
+    option Command  = [1];
+    option Length   = [7];
+
+    required uint8  bda[6];  /* BT address */
+    required uint8  Route;   /* any value of AudioConnect_Route */
+};
+
+/* Audio disconnect  */
+structure CommandAudioDisconnect extends CommandAudio
+{
+    option Command  = [2];
+    option Length   = [2];
+
+    required uint16 Handle;
+};
+
+/* start audio */
+structure CommandAudioStart extends CommandAudio
+{
+    option Command  = [3];
+    option Length   = [4];
+
+    required uint16 Handle;
+    required uint8  Freq;       /* any value of AudioConnect_Freq */
+    required uint8  Mode;       /* any value of AudioConnect_Mode */
+};
+
+/* stop audio */
+structure CommandAudioStop extends CommandAudio
+{
+    option Command  = [4];
+    option Length   = [2];
+
+    required uint16 Handle;
+};
+
+/* debug packet counter sent from host*/
+structure CommandAudioPacketCount extends CommandAudio
+{
+    option Command  = [5];
+    option Length   = [2];
+
+    required uint16 Handle;
+};
+
+/*
+ *********** Test Commands
+ * Define commands sent to the Test commands
+ */
+abstract structure CommandTest extends WicedPacket
+{
+    option Group = [8];
+};
+
+/* LE Receiver Test command */
+structure CommandTestLEReceiver extends CommandTest
+{
+    option Command  = [1];
+    option Length   = [1];
+
+    required uint8  rx_channel; 
+};
+
+/* LE Transmitter Test command */
+structure CommandTestLETransmitter extends CommandTest
+{
+    option Command  = [2];
+    option Length   = [3];
+
+    required uint8  tx_channel;
+    required uint8  data_length;
+    required uint8  data_pattern;
+};
+
+/* LE Test End command */
+structure CommandTestLEEnd extends CommandTest
+{
+    option Command  = [3];
+    option Length   = [0];
+};
+
+/* LE Test Continuous Tx */
+structure CommandTestLEContinuousTx extends CommandTest
+{
+    option Command  = [4];
+    option Length   = [6];
+    
+    required uint8  carrier;
+    required uint16 tx_frequency;
+    required uint8  mode;
+    required uint8  modulation_type;
+    required int8   tx_power;
+};
+
+/* LE Test Receive Only */
+structure CommandTestLEReceiveOnly extends CommandTest
+{
+    option Command  = [5];
+    option Length   = [2];
+    
+    required uint16 rx_frequency;
+};
+
+/* HCI Encapsulated Command */
+structure CommandTestHCIEcapsulated extends CommandTest
+{
+    option Command  = [0x10];
+    option Length   = [init(4)]; /* HCI header is 4 bytes */
+    
+    required uint8 hci_command[Length];
+};
+
+/*
+ *********** Miscellaneous Commands
+ * Define commands sent to the Misc commands
+ */
+abstract structure CommandMisc extends WicedPacket
+{
+    option Group = [255];
+};
+
+/* Ping Request */
+structure CommandMiscPingReq extends CommandMisc
+{
+    option Command  = [1];
+    option Length   = [init(0)];
+
+    required uint8  data[Length];
+};

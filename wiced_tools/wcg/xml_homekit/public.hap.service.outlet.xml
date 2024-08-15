@@ -1,0 +1,134 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2014 Cypress Semiconductor. All rights reserved. -->
+<Service xsi:noNamespaceSchemaLocation="http://schemas.bluetooth.org/Documents/service.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="Outlet Service" type="public.hap.service.outlet" uuid="91 52 76 bb 26 00 00 80 00 10 00 00 47 00 00 00">
+  <InformativeText>
+    <Abstract>
+      This service describes a power outlet.
+    </Abstract>
+    <Summary>
+      TODO: Summary
+    </Summary>
+  </InformativeText>
+  <Dependencies>
+    <Dependency>TODO: This service has no dependencies on other GATT-based services.</Dependency>
+  </Dependencies>
+  <GATTRequirements>
+    <Requirement subProcedure="Read Characteristic Value">Mandatory</Requirement>
+    <Requirement subProcedure="Write Characteristic Value">Mandatory</Requirement>
+    <Requirement subProcedure="Indications">Mandatory</Requirement>
+    <Requirement subProcedure="Read Characteristic Descriptors">Mandatory</Requirement>
+  </GATTRequirements>
+  <Transports>
+    <Classic>false</Classic>
+    <LowEnergy>true</LowEnergy>
+  </Transports>
+  <ErrorCodes/>
+  <Characteristics>
+
+    <Characteristic name="Service Instance" type="public.hap.characteristic.service_instance">
+      <InformativeText>This characteristic is used to identify instances of services used with HomeKit. The value of this characteristic is a 16-bit unsigned integer encoded as 2-byte little endian integer.</InformativeText>
+      <Requirement>Mandatory</Requirement>
+      <Properties>
+        <Read>Mandatory</Read>
+        <Write>Excluded</Write>
+        <WriteWithoutResponse>Excluded</WriteWithoutResponse>
+        <SignedWrite>Excluded</SignedWrite>
+        <ReliableWrite>Excluded</ReliableWrite>
+        <Notify>Excluded</Notify>
+        <Indicate>Excluded</Indicate>
+        <WritableAuxiliaries>Excluded</WritableAuxiliaries>
+        <Broadcast>Excluded</Broadcast>
+      </Properties>
+    </Characteristic>
+
+    <Characteristic name="On" type="public.hap.characteristic.on">
+      <InformativeText>This characteristic represents the states for "on" and "off".</InformativeText>
+      <Requirement>Mandatory</Requirement>
+      <Properties>
+        <Read>Mandatory</Read>
+        <Write>Mandatory</Write>
+        <WriteWithoutResponse>Excluded</WriteWithoutResponse>
+        <SignedWrite>Excluded</SignedWrite>
+        <ReliableWrite>Excluded</ReliableWrite>
+        <Notify>Excluded</Notify>
+        <Indicate>Mandatory</Indicate>
+        <WritableAuxiliaries>Excluded</WritableAuxiliaries>
+        <Broadcast>Excluded</Broadcast>
+      </Properties>
+      <Descriptors>
+        <Descriptor name="Characteristic Instance ID" type="public.hap.descriptor.characteristic_instance_id">
+          <Requirement>Mandatory</Requirement>
+          <Properties>
+            <Read>Mandatory</Read>
+            <Write>Excluded</Write>
+          </Properties>
+        </Descriptor>
+      <Descriptor name="Client Characteristic Configuration" type="org.bluetooth.descriptor.gatt.client_characteristic_configuration">
+                    <Requirement>Mandatory</Requirement>
+                    <Properties>
+                        <Read>Mandatory</Read>
+                        <Write>Mandatory</Write>
+                    </Properties>
+                </Descriptor>
+            </Descriptors>
+    </Characteristic>
+
+    <Characteristic name="Outlet In Use" type="public.hap.characteristic.outlet_in_use">
+      <InformativeText>This characteristic describes if the power outlet is in use, e.g. a floor lamp attached to an outlet service.</InformativeText>
+      <Requirement>Mandatory</Requirement>
+      <Properties>
+        <Read>Mandatory</Read>
+        <Write>Mandatory</Write>
+        <WriteWithoutResponse>Excluded</WriteWithoutResponse>
+        <SignedWrite>Excluded</SignedWrite>
+        <ReliableWrite>Excluded</ReliableWrite>
+        <Notify>Excluded</Notify>
+        <Indicate>Mandatory</Indicate>
+        <WritableAuxiliaries>Excluded</WritableAuxiliaries>
+        <Broadcast>Excluded</Broadcast>
+      </Properties>
+      <Descriptors>
+        <Descriptor name="Characteristic Instance ID" type="public.hap.descriptor.characteristic_instance_id">
+          <Requirement>Mandatory</Requirement>
+          <Properties>
+            <Read>Mandatory</Read>
+            <Write>Excluded</Write>
+          </Properties>
+        </Descriptor>
+      <Descriptor name="Client Characteristic Configuration" type="org.bluetooth.descriptor.gatt.client_characteristic_configuration">
+                    <Requirement>Mandatory</Requirement>
+                    <Properties>
+                        <Read>Mandatory</Read>
+                        <Write>Mandatory</Write>
+                    </Properties>
+                </Descriptor>
+            </Descriptors>
+    </Characteristic>
+
+    <Characteristic name="Name" type="public.hap.characteristic.name">
+      <InformativeText>This characteristic describes a name.</InformativeText>
+      <Requirement>Optional</Requirement>
+      <Properties>
+        <Read>Mandatory</Read>
+        <Write>Mandatory</Write>
+        <WriteWithoutResponse>Excluded</WriteWithoutResponse>
+        <SignedWrite>Excluded</SignedWrite>
+        <ReliableWrite>Excluded</ReliableWrite>
+        <Notify>Excluded</Notify>
+        <Indicate>Excluded</Indicate>
+        <WritableAuxiliaries>Excluded</WritableAuxiliaries>
+        <Broadcast>Excluded</Broadcast>
+      </Properties>
+      <Descriptors>
+        <Descriptor name="Characteristic Instance ID" type="public.hap.descriptor.characteristic_instance_id">
+          <Requirement>Mandatory</Requirement>
+          <Properties>
+            <Read>Mandatory</Read>
+            <Write>Excluded</Write>
+          </Properties>
+        </Descriptor>
+      </Descriptors>
+    </Characteristic>
+
+  </Characteristics>
+</Service>

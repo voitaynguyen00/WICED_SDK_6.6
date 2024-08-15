@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2014 Cypress Semiconductor. All rights reserved. -->
+<Service xsi:noNamespaceSchemaLocation="http://schemas.bluetooth.org/Documents/service.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="Pairing Service" type="public.hap.service.pairing" uuid="91 52 76 bb 26 00 00 80 00 10 00 00 55 00 00 00">
+    <InformativeText>
+        <Abstract>
+            The Pairing Service defines characteristics to support pairing between a controller and an accessory.
+        </Abstract>
+        <Summary>
+            TODO: Summary
+        </Summary>
+    </InformativeText>
+    <Dependencies>
+        <Dependency>TODO: This service has no dependencies on other GATT-based services.</Dependency>
+    </Dependencies>
+    <GATTRequirements>
+        <Requirement subProcedure="Read Characteristic Value">Mandatory</Requirement>
+        <Requirement subProcedure="Write Characteristic Value">Mandatory</Requirement>
+        <Requirement subProcedure="Read Characteristic Descriptors">Mandatory</Requirement>
+    </GATTRequirements>
+    <Transports>
+        <Classic>false</Classic>
+        <LowEnergy>true</LowEnergy>
+    </Transports>
+    <ErrorCodes/>
+    <Characteristics>
+
+        <Characteristic name="Service Instance" type="public.hap.characteristic.service_instance">
+            <InformativeText>This characteristic is used to identify instances of services used with HomeKit. The value of this characteristic is a 16-bit unsigned integer encoded as 2-byte little endian integer.</InformativeText>
+            <Requirement>Mandatory</Requirement>
+            <Properties>
+                <Read>Mandatory</Read>
+                <Write>Excluded</Write>
+                <WriteWithoutResponse>Excluded</WriteWithoutResponse>
+                <SignedWrite>Excluded</SignedWrite>
+                <ReliableWrite>Excluded</ReliableWrite>
+                <Notify>Excluded</Notify>
+                <Indicate>Excluded</Indicate>
+                <WritableAuxiliaries>Excluded</WritableAuxiliaries>
+                <Broadcast>Excluded</Broadcast>
+            </Properties>
+        </Characteristic>
+
+        <Characteristic name="Pair Setup" type="public.hap.characteristic.pairing.pair_setup">
+            <InformativeText>Accessories accept reads/writes to this characteristic to perform password-based setup.</InformativeText>
+            <Requirement>Mandatory</Requirement>
+            <Properties>
+                <Read>Mandatory</Read>
+                <Write>Mandatory</Write>
+                <WriteWithoutResponse>Excluded</WriteWithoutResponse>
+                <SignedWrite>Excluded</SignedWrite>
+                <ReliableWrite>Excluded</ReliableWrite>
+                <Notify>Excluded</Notify>
+                <Indicate>Excluded</Indicate>
+                <WritableAuxiliaries>Excluded</WritableAuxiliaries>
+                <Broadcast>Excluded</Broadcast>
+            </Properties>
+            <Descriptors>
+                <Descriptor name="Characteristic Instance ID" type="public.hap.descriptor.characteristic_instance_id">
+                    <Requirement>Mandatory</Requirement>
+                    <Properties>
+                        <Read>Mandatory</Read>
+                        <Write>Excluded</Write>
+                    </Properties>
+                </Descriptor>
+            </Descriptors>
+        </Characteristic>
+
+        <Characteristic name="Pair Verify" type="public.hap.characteristic.pairing.pair_verify">
+            <InformativeText>Accessories accept reads/writes to this characteristic to perform pair-verify.</InformativeText>
+            <Requirement>Mandatory</Requirement>
+            <Properties>
+                <Read>Mandatory</Read>
+                <Write>Mandatory</Write>
+                <WriteWithoutResponse>Excluded</WriteWithoutResponse>
+                <SignedWrite>Excluded</SignedWrite>
+                <ReliableWrite>Excluded</ReliableWrite>
+                <Notify>Excluded</Notify>
+                <Indicate>Excluded</Indicate>
+                <WritableAuxiliaries>Excluded</WritableAuxiliaries>
+                <Broadcast>Excluded</Broadcast>
+            </Properties>
+            <Descriptors>
+                <Descriptor name="Characteristic Instance ID" type="public.hap.descriptor.characteristic_instance_id">
+                    <Requirement>Mandatory</Requirement>
+                    <Properties>
+                        <Read>Mandatory</Read>
+                        <Write>Excluded</Write>
+                    </Properties>
+                </Descriptor>
+            </Descriptors>
+        </Characteristic>
+
+        <Characteristic name="Pairing Features" type="public.hap.characteristic.pairing.features">
+            <InformativeText>Pairing Features supported by the accessory.</InformativeText>
+            <Requirement>Mandatory</Requirement>
+            <Properties>
+                <Read>Mandatory</Read>
+                <Write>Mandatory</Write>
+                <WriteWithoutResponse>Excluded</WriteWithoutResponse>
+                <SignedWrite>Excluded</SignedWrite>
+                <ReliableWrite>Excluded</ReliableWrite>
+                <Notify>Excluded</Notify>
+                <Indicate>Excluded</Indicate>
+                <WritableAuxiliaries>Excluded</WritableAuxiliaries>
+                <Broadcast>Excluded</Broadcast>
+            </Properties>
+            <Descriptors>
+                <Descriptor name="Characteristic Instance ID" type="public.hap.descriptor.characteristic_instance_id">
+                    <Requirement>Mandatory</Requirement>
+                    <Properties>
+                        <Read>Mandatory</Read>
+                        <Write>Excluded</Write>
+                    </Properties>
+                </Descriptor>
+            </Descriptors>
+        </Characteristic>
+
+        <Characteristic name="Pairings" type="public.hap.characteristic.pairing.pairings">
+            <InformativeText>Accessories accept read/writes to this characteristic to manage pairings, e.g. add addtional pairiings.</InformativeText>
+            <Requirement>Mandatory</Requirement>
+            <Properties>
+                <Read>Mandatory</Read>
+                <Write>Mandatory</Write>
+                <WriteWithoutResponse>Excluded</WriteWithoutResponse>
+                <SignedWrite>Excluded</SignedWrite>
+                <ReliableWrite>Excluded</ReliableWrite>
+                <Notify>Excluded</Notify>
+                <Indicate>Excluded</Indicate>
+                <WritableAuxiliaries>Excluded</WritableAuxiliaries>
+                <Broadcast>Excluded</Broadcast>
+            </Properties>
+            <Descriptors>
+                <Descriptor name="Characteristic Instance ID" type="public.hap.descriptor.characteristic_instance_id">
+                    <Requirement>Mandatory</Requirement>
+                    <Properties>
+                        <Read>Mandatory</Read>
+                        <Write>Excluded</Write>
+                    </Properties>
+                </Descriptor>
+            </Descriptors>
+        </Characteristic>
+
+    </Characteristics>
+</Service>

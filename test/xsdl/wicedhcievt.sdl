@@ -1,0 +1,666 @@
+package HCI;
+
+/** @file
+ *
+ * HCI Control Protocol Definitions
+ *
+ * This file provides definitions for HCI Control Interface between an MCU
+ * and hci_control application running on 20706
+ */
+
+/* 0 - Public address; 1 - Random address 
+enum AddrType
+{
+    AddrTypePublic
+    ,AddrTypeRandom
+};
+*/
+
+/* Packets exchanged over the UART between MCU and hci_control application contain 5 byte header
+ * -------------------------------------------------------------------------------------------------------------
+ * |  Packet Type(25)      | Command Code          |    Group Code       | Packet Length (low byte, high byte) |
+ * -------------------------------------------------------------------------------------------------------------
+ */
+
+/*
+ * Packet group codes
+enum PacketGroup
+{
+    Device
+    ,LE
+    ,GATT
+    ,HF
+    ,SPP
+    ,Audio
+    ,HIDD
+    ,AVRC
+    ,TEST
+    ,AIO
+    ,MISC=0xFF
+};
+ */
+
+abstract structure WicedPacket
+{
+    required uint8  PacketType = [25];
+    required uint8  Command;
+    required uint8  Group;
+    required uint16 Length;
+};
+
+/*
+ *********** Define general events that controller can send
+ */
+abstract structure EventDevice extends WicedPacket
+{
+    option Group = [0];
+};
+
+
+/*
+  Define status code returned in EventCommandStatus
+enum EventDeviceCommandStatus_Status
+{
+    SUCCESS = 0
+    ,IN_PROGRESS
+    ,ALREADY_CONNECTED
+    ,NOT_CONNECTED
+    ,BAD_HANDLE
+    ,WRONG_STATE
+    ,INVALID_ARGS
+    ,FAILED
+    ,UNKNOWN_GROUP
+    ,UNKNOWN_COMMAND
+    ,CLIENT_NOT_REGISTERED
+};
+*/
+
+/* Command status event for the requested operation */
+structure EventDeviceCommandStatus extends EventDevice
+{
+    option Command  = [1];
+    option Length   = [1];
+
+    required uint8   Status;  /* any value of EventDeviceCommandStatus_Status */
+};
+
+/* WICED trace packet */
+structure EventDeviceWicedTrace extends EventDevice
+{
+    option Command  = [2];
+    option Length   = [init(0)];
+
+    required uint8  Trace[Length];
+};
+
+/*
+enum EventDeviceHciTrace_TraceType
+{
+    EVENT
+    ,COMMAND
+    ,INCOMING_ACL_DATA
+    ,OUTGOING_ACL_DATA
+};
+*/
+
+/* Bluetooth protocol trace */
+structure EventDeviceHciTrace extends EventDevice
+{
+    option Command  = [3];
+    option Length   = [init(1)];
+
+    required uint8  TraceType;
+    required uint8  Trace[Length-1];
+};
+
+/* Request to MCU to save NVRAM chunk */
+structure EventDeviceNvramData extends EventDevice
+{
+    option Command  = [4];
+    option Length   = [init(2)];
+
+    required uint16 Id;
+    required uint8  Data[Length-2];
+};
+
+/* Device completed power up initialization */
+structure EventDeviceStarted extends EventDevice
+{
+    option Command  = [5];
+    option Length   = [0];
+};
+
+/* Inquiry result */
+structure EventDeviceInquiryResult extends EventDevice
+{
+    option Command  = [6];
+    option Length   = [init(10)];
+
+    required uint8  bda[6];         /* BT address */
+    required uint8  class[3];       /* device class */
+    required int8   rssi;
+    required uint8  eir[Length-10]; /* eir data */
+};
+
+/* Inquiry completed event */
+structure EventDeviceInquiryComplete extends EventDevice
+{
+    option Command  = [7];
+    option Length   = [0];
+};
+
+/* Pairing Completed */
+structure EventDevicePairingComplete extends EventDevice
+{
+    option Command  = [8];
+    option Length   = [7];
+
+    required uint8 Status;
+    required uint8  bda[6];         /* BT address */
+};
+
+/* Encryption changed event */
+structure EventDeviceEncryptionChanged extends EventDevice
+{
+    option Command  = [9];
+    option Length   = [7];
+
+    required uint8 Status;
+    required uint8  bda[6];         /* BT address */
+};
+
+/* 
+ *********** Define LE events from the BLE GATT/GAP
+ */
+abstract structure EventLe extends WicedPacket
+{
+    option Group = [1];
+};
+
+/* Command status event for the requested operation */
+structure EventLeCommandStatus extends EventLe
+{
+    option Command  = [1];
+    option Length   = [1];
+
+    required uint8  Status; /* any value of EventDeviceCommandStatus_Status */
+};
+
+/*
+* Define Scan state that is reported with the EventLeScanStatus
+enum EventLeScanStatus_Status
+{
+    NO_SCAN
+    ,HIGH_SCAN
+    ,LOW_SCAN
+    ,HIGH_CONN
+    ,LOW_CONN
+};
+*/
+
+/* LE scanning state change notification - HCI_CONTROL_LE_EVENT_COMMAND_STATUS */
+structure EventLeScanStatus extends EventLe
+{
+    option Command  = [2];
+    option Length   = [1];
+
+    required uint8  Status; /* any value of EventLeScanStatus_Status */
+};
+
+/* Advertisement report - HCI_CONTROL_LE_EVENT_ADVERTISEMENT_REPORT */
+structure EventLeAdvertReport extends EventLe
+{
+    option Command  = [3];
+    option Length   = [init(9)];
+
+    required uint8  report;
+    required uint8  type;
+    required uint8  bda[6];  /* BT address */
+    required int8   rssi;
+    required uint8  data[Length-9];
+};
+
+/*
+* Define Advertisement state that is reported with the EventLeAdvertState
+enum EventLeAdvertState_State
+{
+    START_ADVERT
+    ,STOP_ADVERT
+};
+*/
+
+/* LE Advertisement state change notification - HCI_CONTROL_LE_EVENT_ADVERTISEMENT_STATE */
+structure EventLeAdvertState extends EventLe
+{
+    option Command  = [4];
+    option Length   = [1];
+
+    required uint8  State;  /* 0 - Not Discoverable; 1 - High_duty_cycle; 2 - Low_duty_cycle; */
+};
+
+/*
+enum EventLeConnected_Role
+{
+    Master
+    ,Slave
+};
+*/
+
+/* LE Connection established - HCI_CONTROL_LE_EVENT_CONNECTED */
+structure EventLeConnected extends EventLe
+{
+    option Command  = [5];
+    option Length   = [10];
+
+    required uint8  AddrType;   /* 0 - Public address; 1 - Random address */
+    required uint8  bda[6];     /* BT address */
+    required uint16 Handle;
+    required uint8  Role;       /* Master or Slave - see EventLeConnected_Role */
+};
+
+/* Le Connection Terminated - HCI_CONTROL_LE_EVENT_DISCONNECTED */
+structure EventLeDisconnected extends EventLe
+{
+    option Command  = [6];
+    option Length   = [3];
+
+    required uint16 Handle;
+    required uint8  Reason;
+};
+
+/* 
+ *********** Define Audio events
+ */
+abstract structure EventAudio extends WicedPacket
+{
+    option Group = [5];
+};
+
+/* Audio Command Status */
+structure EventAudioCommandStatus extends EventAudio
+{
+    option Command  = [1];
+    option Length   = [1];
+
+    required uint8  status;
+};
+
+/* Audio Connect Event */
+structure EventAudioConnect extends EventAudio
+{
+    option Command  = [2];
+    option Length   = [9];
+
+    required uint8  bda[6];         /* BT address */
+    required uint16 Handle;         /* Connectin Handle */
+    required uint8  abs_volume_capable;
+};
+
+/* Audio Connection Failed Event */
+structure EventAudioConnectionFailed extends EventAudio
+{
+    option Command  = [4];
+    option Length   = [0];
+};
+
+/* Audio Disonnected */
+structure EventAudioDisconnected extends EventAudio
+{
+    option Command  = [5];
+    option Length   = [4];
+
+    required uint16 Handle;         /* Connection Handle */
+    required uint8  status;
+    required uint8  reason;
+};
+
+/* Audio Data Request */
+structure EventAudioDataRequest extends EventAudio
+{
+    option Command  = [6];
+    option Length   = [7];
+
+    required uint16  BytesPacket;
+    required uint8   NumberPacket;
+    required uint8   dummy[4];
+};
+
+/* Audio Started Event */
+structure EventAudioStarted extends EventAudio
+{
+    option Command  = [7];
+    option Length   = [2];
+
+    required uint16 Handle;
+};
+
+/* 
+ *********** Define AV Remote Control events
+ */
+abstract structure EventAVRemoteControl extends WicedPacket
+{
+    option Group = [7];
+};
+
+/* AVRC Connected */
+structure EventAVRCConnected extends EventAVRemoteControl
+{
+    option Command  = [1];
+    option Length   = [8];
+
+    required uint8  bda[6];        /* BT address */       
+    required uint16 Handle;
+};
+
+/* AVRC Disonnected */
+structure EventAVRCDisonnected extends EventAVRemoteControl
+{
+    option Command  = [2];
+    option Length   = [2];
+        
+    required uint16 Handle;
+};
+
+/* AVRC Current Track */
+structure EventAVRCCurrentTrack extends EventAVRemoteControl
+{
+    option Command  = [3];
+    option Length   = [init(5)];
+
+    required uint16 Handle;
+    required uint8  AttributeID;
+    required uint16 AttributeLength;
+    required uint8  Data[Length-5];
+};
+
+/* AVRC Play Status */
+structure EventAVRCPlayStatus extends EventAVRemoteControl
+{
+    option Command  = [4];
+    option Length   = [3];
+
+    required uint16 Handle;
+    required uint8  Status;
+};
+
+/* AVRC Play Position */
+structure EventAVRCPlayPosition extends EventAVRemoteControl
+{
+    option Command  = [5];
+    option Length   = [3];
+
+    required uint16 Handle;
+    required uint8  Position;
+};
+
+/* AVRC Track Changed */
+structure EventAVRCTrackChanged extends EventAVRemoteControl
+{
+    option Command  = [6];
+    option Length   = [2];
+
+    required uint16 Handle;
+};
+
+/* AVRC Track End */
+structure EventAVRCTrackEnd extends EventAVRemoteControl
+{
+    option Command  = [7];
+    option Length   = [2];
+
+    required uint16 Handle;
+};
+
+/* AVRC Track Start */
+structure EventAVRCTrackStart extends EventAVRemoteControl
+{
+    option Command  = [8];
+    option Length   = [2];
+
+    required uint16 Handle;
+};
+
+/* AVRC Settings Available */
+structure EventAVRCSettingsAvailable extends EventAVRemoteControl
+{
+    option Command  = [9];
+    option Length   = [2];
+
+    required uint16 Handle;
+    required uint8  Settings;
+};
+
+/* AVRC Setting Change */
+structure EventAVRCSettingChange extends EventAVRemoteControl
+{
+    option Command  = [0xA];
+    option Length   = [4];
+
+    required uint16 Handle;
+    required uint8  SettingID;
+    required uint8  SettingValue;
+};
+
+/* 
+ *********** Define SPP events
+ */
+abstract structure EventSPP extends WicedPacket
+{
+    option Group = [4];
+};
+
+/* SPP Connected */
+structure EventSPPConnected extends EventSPP
+{
+    option Command  = [1];
+    option Length   = [8];
+
+    required uint8   bda[6];  /* BT address */
+    required uint16  connection_handle;
+};
+
+/* SPP Service Not Found */
+structure EventSPPServiceNotFound extends EventSPP
+{
+    option Command  = [2];
+    option Length   = [0];
+};
+
+/* SPP Connection Failed */
+structure EventSPPConnectionFailed extends EventSPP
+{
+    option Command  = [3];
+    option Length   = [0];
+};
+
+/* SPP Disconnected */
+structure EventSPPDisconnected extends EventSPP
+{
+    option Command  = [4];
+    option Length   = [2];
+
+    required uint16  connection_handle;
+    required uint8   result;
+};
+
+/* SPP TX Complete */
+structure EventSPPTXComplete extends EventSPP
+{
+    option Command  = [5];
+    option Length   = [3];
+
+    required uint16  connection_handle;
+    required uint8   result;
+};
+
+/* SPP RX Data */
+structure EventSPPRXData extends EventSPP
+{
+    option Command  = [6];
+    option Length   = [init(2)];
+
+    required uint16  connection_handle;
+    required uint8   data[Length-2];	
+};
+
+/* SPP Command status event */
+structure EventSPPCommandStatus extends EventSPP
+{
+    option Command  = [7];
+    option Length   = [1];
+
+    required uint8  Status;                /* any value of EventDeviceCommandStatus_Status */
+};
+
+/* 
+ *********** Define MISC events from the Miscellaneous Event Group
+ */
+abstract structure EventMisc extends WicedPacket
+{
+    option Group = [255];
+};
+
+/* Ping Response */
+structure EventMiscPingRes extends EventMisc
+{
+    option Command  = [1];
+    option Length   = [init(0)];
+
+    required uint8  Data[Length];
+};
+
+/*
+ *********** Define GATT events from the BLE GATT/GAP
+ */
+abstract structure EventGatt extends WicedPacket
+{
+    option Group = [2];
+};
+
+/* Command status event for the requested operation */
+structure EventGattCommandStatus extends EventGatt
+{
+    option Command  = [1];
+    option Length   = [1];
+
+    required uint8  Status;                /* any value of EventDeviceCommandStatus_Status */
+};
+
+/* GATT Service discovery Report */
+structure EventGattServiceDiscovered extends EventGatt
+{
+    option Command  = [3];
+    option Length   = [init(8)];
+
+    required uint16  connection_handle;    /* connection handle */
+    required uint8   service_uuid[Length-6]; /* service uuid */
+    required uint16  start_handle;         /* start handle */
+    required uint16  end_handle;           /* end handle */
+};
+
+/* GATT Discovery Complete Event */
+structure EventGattDiscoveryCompleted extends EventGatt
+{
+    option Command  = [2];
+    option Length   = [2];
+
+    required uint16  connection_handle;    /* connection handle*/
+};
+
+
+/* GATT Characteristics discovery Report */
+structure EventGattCharacteristicDiscovered extends EventGatt
+{
+    option Command  = [4];
+    option Length   = [init(9)];
+
+    required uint16  connection_handle;        /* connection handle */
+    required uint16  characteristic_handle;    /* characteristic handle */
+    required uint16  value_handle;             /* value handle */
+    required uint8   characteristic_property;  /* characteristic property */
+    required uint8   characteristic_uuid[Length-7];     /* characteristic uuid */
+};
+
+/* GATT Descriptor discovery Report */
+structure EventGattDescriptorDiscovered extends EventGatt
+{
+    option Command  = [5];
+    option Length   = [init(6)];
+
+    required uint16  connection_handle;         /* connection handle */
+    required uint16  descriptor_handle;         /* descriptor handle */
+    required uint8   descriptor_uuid[Length-4]; /* descriptor uuid */
+};
+
+/* GATT */
+structure EventGattReadRequest extends EventGatt
+{
+    option Command  = [6];
+    option Length   = [4];
+
+    required uint16  connection_handle;     /* connection handle */
+    required uint16  value_handle;          /* value handle */
+};
+
+/* GATT */
+structure EventGattReadResponse extends EventGatt
+{
+    option Command  = [7];
+    option Length   = [init(2)];
+
+    required uint16 connection_handle;     /* connection handle */
+    required uint8  value[Length-2];              /* value handle */
+};
+
+structure EventGattWriteReq extends EventGatt
+{
+    option Command  = [8];
+    option Length   = [init(4)];
+    required uint16 connection_handle;     /* Connection Handle */
+    required uint16 value_handle;          /* handle */
+    required uint8  data[Length - 4];      /* data */
+};
+
+structure EventGattWriteResponse extends EventGatt
+{
+    option Command  = [9];
+    option Length   = [3];
+
+    required uint16  connection_handle;     /* connection handle */
+    required uint8  Result;                /* write request result */
+};
+
+structure EventGattIndication extends EventGatt
+{
+    option Command  = [0xA];
+    option Length   = [init(4)];
+
+    required uint16 connection_handle;     /* connection handle */
+    required uint16 value_handle;          /* connection handle */
+    required uint8  data[Length-4];        /* value handle */
+};
+
+structure EventGattNotification extends EventGatt
+{
+    option Command  = [0xB];
+    option Length   = [init(4)];
+
+    required uint16 connection_handle;     /* connection handle */
+    required uint16 value_handle;          /* connection handle */
+    required uint8  data[Length-4];        /* value handle */
+};
+/* 
+ *********** Define Test group events
+ */
+abstract structure EventTest extends WicedPacket
+{
+    option Group = [8];
+};
+
+structure EventTestEncapsulatedHCI extends EventTest
+{
+    option Command  = [0x1];
+    option Length   = [init(5)];
+
+    required uint8  hci_event[Length];
+};

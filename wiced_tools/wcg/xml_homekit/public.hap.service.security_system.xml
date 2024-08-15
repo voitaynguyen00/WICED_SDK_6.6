@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2015 Cypress Semiconductor. All rights reserved. -->
+<Service xsi:noNamespaceSchemaLocation="http://schemas.bluetooth.org/Documents/service.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="Security System" type="public.hap.service.security_system" uuid="91 52 76 bb 26 00 00 80 00 10 00 00 7e 00 00 00">
+    <InformativeText>
+        <Abstract>
+            This service describes a security system. This service requires iOS 9.
+        </Abstract>
+        <Summary>
+            TODO: Summary
+        </Summary>
+    </InformativeText>
+    <Dependencies>
+        <Dependency>TODO: This service has no dependencies on other GATT-based services.</Dependency>
+    </Dependencies>
+    <GATTRequirements>
+        <Requirement subProcedure="Read Characteristic Value">Mandatory</Requirement>
+        <Requirement subProcedure="Write Characteristic Value">Mandatory</Requirement>
+        <Requirement subProcedure="Indications">Mandatory</Requirement>
+        <Requirement subProcedure="Read Characteristic Descriptors">Mandatory</Requirement>
+    </GATTRequirements>
+    <Transports>
+        <Classic>false</Classic>
+        <LowEnergy>true</LowEnergy>
+    </Transports>
+    <ErrorCodes/>
+    <Characteristics>
+
+        <Characteristic name="Service Instance" type="public.hap.characteristic.service_instance">
+            <InformativeText>This characteristic is used to identify instances of services used with HomeKit. The value of this characteristic is a 16-bit unsigned integer encoded as 2-byte little endian integer.</InformativeText>
+            <Requirement>Mandatory</Requirement>
+            <Properties>
+                <Read>Mandatory</Read>
+                <Write>Excluded</Write>
+                <WriteWithoutResponse>Excluded</WriteWithoutResponse>
+                <SignedWrite>Excluded</SignedWrite>
+                <ReliableWrite>Excluded</ReliableWrite>
+                <Notify>Excluded</Notify>
+                <Indicate>Excluded</Indicate>
+                <WritableAuxiliaries>Excluded</WritableAuxiliaries>
+                <Broadcast>Excluded</Broadcast>
+            </Properties>
+        </Characteristic>
+
+        <Characteristic name="Security System Current State" type="public.hap.characteristic.security_system_state.current">
+            <InformativeText>This characteristic describes the state of a security system.</InformativeText>
+            <Requirement>Mandatory</Requirement>
+            <Properties>
+                <Read>Mandatory</Read>
+                <Write>Mandatory</Write>
+                <WriteWithoutResponse>Excluded</WriteWithoutResponse>
+                <SignedWrite>Excluded</SignedWrite>
+                <ReliableWrite>Excluded</ReliableWrite>
+                <Notify>Excluded</Notify>
+                <Indicate>Mandatory</Indicate>
+                <WritableAuxiliaries>Excluded</WritableAuxiliaries>
+                <Broadcast>Excluded</Broadcast>
+            </Properties>
+            <Descriptors>
+                <Descriptor name="Characteristic Instance ID" type="public.hap.descriptor.characteristic_instance_id">
+                    <Requirement>Mandatory</Requirement>
+                    <Properties>
+                        <Read>Mandatory</Read>
+                        <Write>Excluded</Write>
+                    </Properties>
+                </Descriptor>
+                <Descriptor name="Client Characteristic Configuration" type="org.bluetooth.descriptor.gatt.client_characteristic_configuration">
+                    <Requirement>Mandatory</Requirement>
+                    <Properties>
+                        <Read>Mandatory</Read>
+                        <Write>Mandatory</Write>
+                    </Properties>
+                </Descriptor>
+            </Descriptors>
+        </Characteristic>
+
+        <Characteristic name="Security System Target State" type="public.hap.characteristic.security_system_state.target">
+            <InformativeText>This characteristic describes the target state of a security system.</InformativeText>
+            <Requirement>Mandatory</Requirement>
+            <Properties>
+                <Read>Mandatory</Read>
+                <Write>Mandatory</Write>
+                <WriteWithoutResponse>Excluded</WriteWithoutResponse>
+                <SignedWrite>Excluded</SignedWrite>
+                <ReliableWrite>Excluded</ReliableWrite>
+                <Notify>Excluded</Notify>
+                <Indicate>Mandatory</Indicate>
+                <WritableAuxiliaries>Excluded</WritableAuxiliaries>
+                <Broadcast>Excluded</Broadcast>
+            </Properties>
+            <Descriptors>
+                <Descriptor name="Characteristic Instance ID" type="public.hap.descriptor.characteristic_instance_id">
+                    <Requirement>Mandatory</Requirement>
+                    <Properties>
+                        <Read>Mandatory</Read>
+                        <Write>Excluded</Write>
+                    </Properties>
+                </Descriptor>
+                <Descriptor name="Client Characteristic Configuration" type="org.bluetooth.descriptor.gatt.client_characteristic_configuration">
+                    <Requirement>Mandatory</Requirement>
+                    <Properties>
+                        <Read>Mandatory</Read>
+                        <Write>Mandatory</Write>
+                    </Properties>
+                </Descriptor>
+            </Descriptors>
+        </Characteristic>
+
+        <Characteristic name="Name" type="public.hap.characteristic.name">
+            <InformativeText>This characteristic describes a name.</InformativeText>
+            <Requirement>Optional</Requirement>
+            <Properties>
+                <Read>Mandatory</Read>
+                <Write>Mandatory</Write>
+                <WriteWithoutResponse>Excluded</WriteWithoutResponse>
+                <SignedWrite>Excluded</SignedWrite>
+                <ReliableWrite>Excluded</ReliableWrite>
+                <Notify>Excluded</Notify>
+                <Indicate>Excluded</Indicate>
+                <WritableAuxiliaries>Excluded</WritableAuxiliaries>
+                <Broadcast>Excluded</Broadcast>
+            </Properties>
+            <Descriptors>
+                <Descriptor name="Characteristic Instance ID" type="public.hap.descriptor.characteristic_instance_id">
+                    <Requirement>Mandatory</Requirement>
+                    <Properties>
+                        <Read>Mandatory</Read>
+                        <Write>Excluded</Write>
+                    </Properties>
+                </Descriptor>
+            </Descriptors>
+        </Characteristic>
+
+        <Characteristic name="Security System Alarm Type" type="public.hap.characteristic.security_system.alarm_type">
+            <InformativeText>This characteristic describes the type of alarm triggered by a security system. A value of 1 indicates an 'unknown' cause. Value should revert to 0 when the alarm conditions are cleared.</InformativeText>
+            <Requirement>Optional</Requirement>
+            <Properties>
+                <Read>Mandatory</Read>
+                <Write>Mandatory</Write>
+                <WriteWithoutResponse>Excluded</WriteWithoutResponse>
+                <SignedWrite>Excluded</SignedWrite>
+                <ReliableWrite>Excluded</ReliableWrite>
+                <Notify>Excluded</Notify>
+                <Indicate>Mandatory</Indicate>
+                <WritableAuxiliaries>Excluded</WritableAuxiliaries>
+                <Broadcast>Excluded</Broadcast>
+            </Properties>
+            <Descriptors>
+                <Descriptor name="Characteristic Instance ID" type="public.hap.descriptor.characteristic_instance_id">
+                    <Requirement>Mandatory</Requirement>
+                    <Properties>
+                        <Read>Mandatory</Read>
+                        <Write>Excluded</Write>
+                    </Properties>
+                </Descriptor>
+                <Descriptor name="Client Characteristic Configuration" type="org.bluetooth.descriptor.gatt.client_characteristic_configuration">
+                    <Requirement>Mandatory</Requirement>
+                    <Properties>
+                        <Read>Mandatory</Read>
+                        <Write>Mandatory</Write>
+                    </Properties>
+                </Descriptor>
+            </Descriptors>
+        </Characteristic>
+
+        <Characteristic name="Status Fault" type="public.hap.characteristic.status_fault">
+            <InformativeText>This characteristic describes an accessory which has a fault. A non-zero value indicates that the accessory has experienced a fault that may be interfering with its intended functionality. A value of 0 indicates that there is no fault.</InformativeText>
+            <Requirement>Optional</Requirement>
+            <Properties>
+                <Read>Mandatory</Read>
+                <Write>Mandatory</Write>
+                <WriteWithoutResponse>Excluded</WriteWithoutResponse>
+                <SignedWrite>Excluded</SignedWrite>
+                <ReliableWrite>Excluded</ReliableWrite>
+                <Notify>Excluded</Notify>
+                <Indicate>Mandatory</Indicate>
+                <WritableAuxiliaries>Excluded</WritableAuxiliaries>
+                <Broadcast>Excluded</Broadcast>
+            </Properties>
+            <Descriptors>
+                <Descriptor name="Characteristic Instance ID" type="public.hap.descriptor.characteristic_instance_id">
+                    <Requirement>Mandatory</Requirement>
+                    <Properties>
+                        <Read>Mandatory</Read>
+                        <Write>Excluded</Write>
+                    </Properties>
+                </Descriptor>
+                <Descriptor name="Client Characteristic Configuration" type="org.bluetooth.descriptor.gatt.client_characteristic_configuration">
+                    <Requirement>Mandatory</Requirement>
+                    <Properties>
+                        <Read>Mandatory</Read>
+                        <Write>Mandatory</Write>
+                    </Properties>
+                </Descriptor>
+            </Descriptors>
+        </Characteristic>
+
+        <Characteristic name="Status Tampered" type="public.hap.characteristic.status_tampered">
+            <InformativeText>This characteristic describes an accessory which has been tampered with. A status of 1 indicates that the accessory has been tampered with. Values should return to 0 when the accessory has been reset to a non-tampered state.</InformativeText>
+            <Requirement>Optional</Requirement>
+            <Properties>
+                <Read>Mandatory</Read>
+                <Write>Mandatory</Write>
+                <WriteWithoutResponse>Excluded</WriteWithoutResponse>
+                <SignedWrite>Excluded</SignedWrite>
+                <ReliableWrite>Excluded</ReliableWrite>
+                <Notify>Excluded</Notify>
+                <Indicate>Mandatory</Indicate>
+                <WritableAuxiliaries>Excluded</WritableAuxiliaries>
+                <Broadcast>Excluded</Broadcast>
+            </Properties>
+            <Descriptors>
+                <Descriptor name="Characteristic Instance ID" type="public.hap.descriptor.characteristic_instance_id">
+                    <Requirement>Mandatory</Requirement>
+                    <Properties>
+                        <Read>Mandatory</Read>
+                        <Write>Excluded</Write>
+                    </Properties>
+                </Descriptor>
+                <Descriptor name="Client Characteristic Configuration" type="org.bluetooth.descriptor.gatt.client_characteristic_configuration">
+                    <Requirement>Mandatory</Requirement>
+                    <Properties>
+                        <Read>Mandatory</Read>
+                        <Write>Mandatory</Write>
+                    </Properties>
+                </Descriptor>
+            </Descriptors>
+        </Characteristic>
+
+    </Characteristics>
+</Service>

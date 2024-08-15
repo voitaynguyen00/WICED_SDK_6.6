@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2014 Cypress Semiconductor. All rights reserved. -->
+<Service xsi:noNamespaceSchemaLocation="http://schemas.bluetooth.org/Documents/service.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="Accessory Information Service" type="public.hap.service.accessory_information" uuid="91 52 76 bb 26 00 00 80 00 10 00 00 3e 00 00 00">
+    <InformativeText>
+        <Abstract>
+            Every Homekit accessory must expose a single instance of the Accessory Information service.
+        </Abstract>
+        <Summary>
+            TODO: Summary
+        </Summary>
+    </InformativeText>
+    <Dependencies>
+        <Dependency>TODO: This service has no dependencies on other GATT-based services.</Dependency>
+    </Dependencies>
+    <GATTRequirements>
+        <Requirement subProcedure="Read Characteristic Value">Mandatory</Requirement>
+        <Requirement subProcedure="Write Characteristic Value">Mandatory</Requirement>
+        <Requirement subProcedure="Read Characteristic Descriptors">Mandatory</Requirement>
+    </GATTRequirements>
+    <Transports>
+        <Classic>false</Classic>
+        <LowEnergy>true</LowEnergy>
+    </Transports>
+    <ErrorCodes/>
+    <Characteristics>
+
+        <Characteristic name="Service Instance" type="public.hap.characteristic.service_instance">
+            <InformativeText>This characteristic is used to identify instances of services used with HomeKit. The value of this characteristic is a 16-bit unsigned integer encoded as 2-byte little endian integer.</InformativeText>
+            <Requirement>Mandatory</Requirement>
+            <Properties>
+                <Read>Mandatory</Read>
+                <Write>Excluded</Write>
+                <WriteWithoutResponse>Excluded</WriteWithoutResponse>
+                <SignedWrite>Excluded</SignedWrite>
+                <ReliableWrite>Excluded</ReliableWrite>
+                <Notify>Excluded</Notify>
+                <Indicate>Excluded</Indicate>
+                <WritableAuxiliaries>Excluded</WritableAuxiliaries>
+                <Broadcast>Excluded</Broadcast>
+            </Properties>
+        </Characteristic>
+
+        <Characteristic name="Identify" type="public.hap.characteristic.identify">
+            <InformativeText>This characteristic is used to cause the accessory to run its identify routine.</InformativeText>
+            <Requirement>Mandatory</Requirement>
+            <Properties>
+                <Read>Mandatory</Read>
+                <Write>Mandatory</Write>
+                <WriteWithoutResponse>Excluded</WriteWithoutResponse>
+                <SignedWrite>Excluded</SignedWrite>
+                <ReliableWrite>Excluded</ReliableWrite>
+                <Notify>Excluded</Notify>
+                <Indicate>Excluded</Indicate>
+                <WritableAuxiliaries>Excluded</WritableAuxiliaries>
+                <Broadcast>Excluded</Broadcast>
+            </Properties>
+            <Descriptors>
+                <Descriptor name="Characteristic Instance ID" type="public.hap.descriptor.characteristic_instance_id">
+                    <Requirement>Mandatory</Requirement>
+                    <Properties>
+                        <Read>Mandatory</Read>
+                        <Write>Excluded</Write>
+                    </Properties>
+                </Descriptor>
+            </Descriptors>
+        </Characteristic>
+
+        <Characteristic name="Manufacturer" type="public.hap.characteristic.manufacturer">
+            <InformativeText>This characteristic contains the manufacturer of the accessory, e.g. "Acme".</InformativeText>
+            <Requirement>Mandatory</Requirement>
+            <Properties>
+                <Read>Mandatory</Read>
+                <Write>Mandatory</Write>
+                <WriteWithoutResponse>Excluded</WriteWithoutResponse>
+                <SignedWrite>Excluded</SignedWrite>
+                <ReliableWrite>Excluded</ReliableWrite>
+                <Notify>Excluded</Notify>
+                <Indicate>Excluded</Indicate>
+                <WritableAuxiliaries>Excluded</WritableAuxiliaries>
+                <Broadcast>Excluded</Broadcast>
+            </Properties>
+            <Descriptors>
+                <Descriptor name="Characteristic Instance ID" type="public.hap.descriptor.characteristic_instance_id">
+                    <Requirement>Mandatory</Requirement>
+                    <Properties>
+                        <Read>Mandatory</Read>
+                        <Write>Excluded</Write>
+                    </Properties>
+                </Descriptor>
+            </Descriptors>
+        </Characteristic>
+
+        <Characteristic name="Model" type="public.hap.characteristic.model">
+            <InformativeText>This characteristic contains the manufacturer-specific model of the accessory, e.g. "A1234".</InformativeText>
+            <Requirement>Mandatory</Requirement>
+            <Properties>
+                <Read>Mandatory</Read>
+                <Write>Mandatory</Write>
+                <WriteWithoutResponse>Excluded</WriteWithoutResponse>
+                <SignedWrite>Excluded</SignedWrite>
+                <ReliableWrite>Excluded</ReliableWrite>
+                <Notify>Excluded</Notify>
+                <Indicate>Excluded</Indicate>
+                <WritableAuxiliaries>Excluded</WritableAuxiliaries>
+                <Broadcast>Excluded</Broadcast>
+            </Properties>
+            <Descriptors>
+                <Descriptor name="Characteristic Instance ID" type="public.hap.descriptor.characteristic_instance_id">
+                    <Requirement>Mandatory</Requirement>
+                    <Properties>
+                        <Read>Mandatory</Read>
+                        <Write>Excluded</Write>
+                    </Properties>
+                </Descriptor>
+            </Descriptors>
+        </Characteristic>
+
+        <Characteristic name="Name" type="public.hap.characteristic.name">
+            <InformativeText>This characteristic describes a name.</InformativeText>
+            <Requirement>Mandatory</Requirement>
+            <Properties>
+                <Read>Mandatory</Read>
+                <Write>Mandatory</Write>
+                <WriteWithoutResponse>Excluded</WriteWithoutResponse>
+                <SignedWrite>Excluded</SignedWrite>
+                <ReliableWrite>Excluded</ReliableWrite>
+                <Notify>Excluded</Notify>
+                <Indicate>Excluded</Indicate>
+                <WritableAuxiliaries>Excluded</WritableAuxiliaries>
+                <Broadcast>Excluded</Broadcast>
+            </Properties>
+            <Descriptors>
+                <Descriptor name="Characteristic Instance ID" type="public.hap.descriptor.characteristic_instance_id">
+                    <Requirement>Mandatory</Requirement>
+                    <Properties>
+                        <Read>Mandatory</Read>
+                        <Write>Excluded</Write>
+                    </Properties>
+                </Descriptor>
+            </Descriptors>
+        </Characteristic>
+
+        <Characteristic name="Serial Number" type="public.hap.characteristic.serial_number">
+            <InformativeText>This characteristic contains the manufacturer-specific serial number of the accessory, e.g. "1A2B3C4D5E6F".</InformativeText>
+            <Requirement>Mandatory</Requirement>
+            <Properties>
+                <Read>Mandatory</Read>
+                <Write>Mandatory</Write>
+                <WriteWithoutResponse>Excluded</WriteWithoutResponse>
+                <SignedWrite>Excluded</SignedWrite>
+                <ReliableWrite>Excluded</ReliableWrite>
+                <Notify>Excluded</Notify>
+                <Indicate>Excluded</Indicate>
+                <WritableAuxiliaries>Excluded</WritableAuxiliaries>
+                <Broadcast>Excluded</Broadcast>
+            </Properties>
+            <Descriptors>
+                <Descriptor name="Characteristic Instance ID" type="public.hap.descriptor.characteristic_instance_id">
+                    <Requirement>Mandatory</Requirement>
+                    <Properties>
+                        <Read>Mandatory</Read>
+                        <Write>Excluded</Write>
+                    </Properties>
+                </Descriptor>
+            </Descriptors>
+        </Characteristic>
+
+        <Characteristic name="Firmware Revision" type="public.hap.characteristic.firmware_revision">
+            <InformativeText>
+                This characteristic describes a firmware revision string x[.y[.z]][;&lt;info&gt;] (e.g. "100.1"):
+                <p>- &lt;x&gt; is the major version number</p>
+                <p>- &lt;y&gt; is the minor version number</p>
+                <p>- &lt;z&gt; is the revision version number</p>
+                <p>- &lt;info&gt; may contain additional information</p>
+                <p>These fields are converted to a numeric version as follows: verison = (x 10000) + (y 100) + z.</p>
+                <p>For example, "100.1" would be x=100 and y=1 so (x 10000) + (Y 100) = 1000100.</p>
+            </InformativeText>
+            <Requirement>Optional</Requirement>
+            <Properties>
+                <Read>Mandatory</Read>
+                <Write>Mandatory</Write>
+                <WriteWithoutResponse>Excluded</WriteWithoutResponse>
+                <SignedWrite>Excluded</SignedWrite>
+                <ReliableWrite>Excluded</ReliableWrite>
+                <Notify>Excluded</Notify>
+                <Indicate>Excluded</Indicate>
+                <WritableAuxiliaries>Excluded</WritableAuxiliaries>
+                <Broadcast>Excluded</Broadcast>
+            </Properties>
+            <Descriptors>
+                <Descriptor name="Characteristic Instance ID" type="public.hap.descriptor.characteristic_instance_id">
+                    <Requirement>Mandatory</Requirement>
+                    <Properties>
+                        <Read>Mandatory</Read>
+                        <Write>Excluded</Write>
+                    </Properties>
+                </Descriptor>
+            </Descriptors>
+        </Characteristic>
+
+        <Characteristic name="Hardware Revision" type="public.hap.characteristic.hardware_revision">
+            <InformativeText>
+                This characteristic describes a hardware revision string x[.y[.z]][;&lt;info&gt;] (e.g. "100.1"):
+                <p>- &lt;x&gt; is the major version number</p>
+                <p>- &lt;y&gt; is the minor version number</p>
+                <p>- &lt;z&gt; is the revision version number</p>
+                <p>- &lt;info&gt; may contain additional information</p>
+                <p>These fields are converted to a numeric version as follows: verison = (x 10000) + (y 100) + z.</p>
+                <p>For example, "100.1" would be x=100 and y=1 so (x 10000) + (Y 100) = 1000100.</p>
+            </InformativeText>
+            <Requirement>Optional</Requirement>
+            <Properties>
+                <Read>Mandatory</Read>
+                <Write>Mandatory</Write>
+                <WriteWithoutResponse>Excluded</WriteWithoutResponse>
+                <SignedWrite>Excluded</SignedWrite>
+                <ReliableWrite>Excluded</ReliableWrite>
+                <Notify>Excluded</Notify>
+                <Indicate>Excluded</Indicate>
+                <WritableAuxiliaries>Excluded</WritableAuxiliaries>
+                <Broadcast>Excluded</Broadcast>
+            </Properties>
+            <Descriptors>
+                <Descriptor name="Characteristic Instance ID" type="public.hap.descriptor.characteristic_instance_id">
+                    <Requirement>Mandatory</Requirement>
+                    <Properties>
+                        <Read>Mandatory</Read>
+                        <Write>Excluded</Write>
+                    </Properties>
+                </Descriptor>
+            </Descriptors>
+        </Characteristic>
+
+        <Characteristic name="Software Revision" type="public.hap.characteristic.software_revision">
+            <InformativeText>
+                This characteristic describes a software revision string x[.y[.z]][;&lt;info&gt;] (e.g. "100.1"):
+                <p>- &lt;x&gt; is the major version number</p>
+                <p>- &lt;y&gt; is the minor version number</p>
+                <p>- &lt;z&gt; is the revision version number</p>
+                <p>- &lt;info&gt; may contain additional information</p>
+                <p>These fields are converted to a numeric version as follows: verison = (x 10000) + (y 100) + z.</p>
+                <p>For example, "100.1" would be x=100 and y=1 so (x 10000) + (Y 100) = 1000100.</p>
+            </InformativeText>
+            <Requirement>Optional</Requirement>
+            <Properties>
+                <Read>Mandatory</Read>
+                <Write>Mandatory</Write>
+                <WriteWithoutResponse>Excluded</WriteWithoutResponse>
+                <SignedWrite>Excluded</SignedWrite>
+                <ReliableWrite>Excluded</ReliableWrite>
+                <Notify>Excluded</Notify>
+                <Indicate>Excluded</Indicate>
+                <WritableAuxiliaries>Excluded</WritableAuxiliaries>
+                <Broadcast>Excluded</Broadcast>
+            </Properties>
+            <Descriptors>
+                <Descriptor name="Characteristic Instance ID" type="public.hap.descriptor.characteristic_instance_id">
+                    <Requirement>Mandatory</Requirement>
+                    <Properties>
+                        <Read>Mandatory</Read>
+                        <Write>Excluded</Write>
+                    </Properties>
+                </Descriptor>
+            </Descriptors>
+        </Characteristic>
+
+    </Characteristics>
+</Service>

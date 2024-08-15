@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "C:\\cygwin\\home\\annadats\\code\\master\\staging\\Wiced-SDK\\common\\peer_apps\\ota_firmware_upgrade\\Android\\OTASPPApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\device_element.xml",
+        "source": "C:\\cygwin\\home\\annadats\\code\\master\\staging\\Wiced-SDK\\common\\peer_apps\\ota_firmware_upgrade\\Android\\OTASPPApp\\app\\src\\main\\res\\layout\\device_element.xml"
+    },
+    {
+        "merged": "C:\\cygwin\\home\\annadats\\code\\master\\staging\\Wiced-SDK\\common\\peer_apps\\ota_firmware_upgrade\\Android\\OTASPPApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\devicepicker_layout.xml",
+        "source": "C:\\cygwin\\home\\annadats\\code\\master\\staging\\Wiced-SDK\\common\\peer_apps\\ota_firmware_upgrade\\Android\\OTASPPApp\\app\\src\\main\\res\\layout\\devicepicker_layout.xml"
+    },
+    {
+        "merged": "C:\\cygwin\\home\\annadats\\code\\master\\staging\\Wiced-SDK\\common\\peer_apps\\ota_firmware_upgrade\\Android\\OTASPPApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\devicepicker_listitem.xml",
+        "source": "C:\\cygwin\\home\\annadats\\code\\master\\staging\\Wiced-SDK\\common\\peer_apps\\ota_firmware_upgrade\\Android\\OTASPPApp\\app\\src\\main\\res\\layout\\devicepicker_listitem.xml"
+    },
+    {
+        "merged": "C:\\cygwin\\home\\annadats\\code\\master\\staging\\Wiced-SDK\\common\\peer_apps\\ota_firmware_upgrade\\Android\\OTASPPApp\\app\\build\\intermediates\\res\\merged\\debug\\layout\\main.xml",
+        "source": "C:\\cygwin\\home\\annadats\\code\\master\\staging\\Wiced-SDK\\common\\peer_apps\\ota_firmware_upgrade\\Android\\OTASPPApp\\app\\src\\main\\res\\layout\\main.xml"
+    }
+]

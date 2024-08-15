@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2015 Cypress Semiconductor. All rights reserved. -->
+<Characteristic xsi:noNamespaceSchemaLocation="http://schemas.bluetooth.org/Documents/characteristic.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="Air Quality" type="public.hap.characteristic.air_quality" uuid="91 52 76 bb 26 00 00 80 00 10 00 00 95 00 00 00">
+    <InformativeText>
+        <Abstract>
+            This characteristic describes the subject assessment of air quality by an accessory. This characteristic requires iOS 9.
+        </Abstract>
+        <Summary>
+            TODO: Summary
+        </Summary>
+        <Examples>
+            <Example>TODO: Example</Example>
+        </Examples>
+    </InformativeText>
+    <Value>
+        <Field name="Air Quality">
+            <InformativeText/>
+            <Requirement>Mandatory</Requirement>
+            <Format>uint8</Format>
+            <Minimum>0</Minimum>
+            <Maximum>5</Maximum>
+            <Step>1</Step>
+            <Enumerations>
+                <Enumeration key="0" value="Unknown" />
+                <Enumeration key="1" value="Excellent" />
+                <Enumeration key="2" value="Good" />
+                <Enumeration key="3" value="Fair" />
+                <Enumeration key="4" value="Inferior" />
+                <Enumeration key="5" value="Poor" />
+                <ReservedForFutureUse start="6" end="255" />
+            </Enumerations>
+        </Field>
+    </Value>
+    <Metadata>
+        <Descriptor name="HAP Characteristic Properties" type="public.hap.descriptor.hap_characteristic_properties">
+            <Requirement>Mandatory</Requirement>
+            <Properties>
+                <Read>Excluded</Read>
+                <Write>Excluded</Write>
+                <AdditionalAuthData>Excluded</AdditionalAuthData>
+                <TimedWriteProcedure>Excluded</TimedWriteProcedure>
+                <SecureRead>Mandatory</SecureRead>
+                <SecureWrite>Excluded</SecureWrite>
+                <InvisibleToUser>Excluded</InvisibleToUser>
+                <NotifyInConnected>Mandatory</NotifyInConnected>
+                <NotifyInDisconnected>Mandatory</NotifyInDisconnected>
+            </Properties>
+        </Descriptor>
+    </Metadata>
+</Characteristic>

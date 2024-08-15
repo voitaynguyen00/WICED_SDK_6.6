@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2014 Cypress Semiconductor. All rights reserved. -->
+<Service xsi:noNamespaceSchemaLocation="http://schemas.bluetooth.org/Documents/service.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="Pairing Service" type="com.apple.service.pairing" uuid="FED4">
+  <InformativeText>
+    <Abstract>
+      The Pairing Service defines characteristics to support pairing between a controller and an accessory.
+    </Abstract>
+    <Summary>
+      TODO: Summary
+    </Summary>
+  </InformativeText>
+  <Dependencies>
+    <Dependency>TODO: This service has no dependencies on other GATT-based services.</Dependency>
+  </Dependencies>
+  <GATTRequirements>
+    <Requirement subProcedure="Read Characteristic Value">Mandatory</Requirement>
+    <Requirement subProcedure="Write Characteristic Value">Mandatory</Requirement>
+  </GATTRequirements>
+  <Transports>
+    <Classic>false</Classic>
+    <LowEnergy>true</LowEnergy>
+  </Transports>
+  <ErrorCodes/>
+  <Characteristics>
+
+    <Characteristic name="Pair Setup" type="com.apple.characteristic.pairing.pair_setup">
+      <InformativeText>Accessories accept reads/writes to this characteristic to perform password-based setup.</InformativeText>
+      <Requirement>Mandatory</Requirement>
+      <Properties>
+        <Read>Mandatory</Read>
+        <Write>Mandatory</Write>
+        <WriteWithoutResponse>Excluded</WriteWithoutResponse>
+        <SignedWrite>Excluded</SignedWrite>
+        <ReliableWrite>Excluded</ReliableWrite>
+        <Notify>Excluded</Notify>
+        <Indicate>Excluded</Indicate>
+        <WritableAuxiliaries>Excluded</WritableAuxiliaries>
+        <Broadcast>Excluded</Broadcast>
+      </Properties>
+    </Characteristic>
+
+    <Characteristic name="Pair Verify" type="com.apple.characteristic.pairing.pair_verify">
+      <InformativeText>Accessories accept reads/writes to this characteristic to perform pair-verify.</InformativeText>
+      <Requirement>Mandatory</Requirement>
+      <Properties>
+        <Read>Mandatory</Read>
+        <Write>Mandatory</Write>
+        <WriteWithoutResponse>Excluded</WriteWithoutResponse>
+        <SignedWrite>Excluded</SignedWrite>
+        <ReliableWrite>Excluded</ReliableWrite>
+        <Notify>Excluded</Notify>
+        <Indicate>Excluded</Indicate>
+        <WritableAuxiliaries>Excluded</WritableAuxiliaries>
+        <Broadcast>Excluded</Broadcast>
+      </Properties>
+    </Characteristic>
+
+    <Characteristic name="Pairing Features" type="com.apple.characteristic.pairing.features">
+      <InformativeText>Pairing Features supported by the accessory.</InformativeText>
+      <Requirement>Mandatory</Requirement>
+      <Properties>
+        <Read>Mandatory</Read>
+        <Write>Excluded</Write>
+        <WriteWithoutResponse>Excluded</WriteWithoutResponse>
+        <SignedWrite>Excluded</SignedWrite>
+        <ReliableWrite>Excluded</ReliableWrite>
+        <Notify>Excluded</Notify>
+        <Indicate>Excluded</Indicate>
+        <WritableAuxiliaries>Excluded</WritableAuxiliaries>
+        <Broadcast>Excluded</Broadcast>
+      </Properties>
+    </Characteristic>
+
+    <Characteristic name="Pairings" type="com.apple.characteristic.pairing.pairings">
+      <InformativeText>Accessories accept read/writes to this characteristic to manage pairings, e.g. add addtional pairiings.</InformativeText>
+      <Requirement>Mandatory</Requirement>
+      <Properties>
+        <Read>Mandatory</Read>
+        <Write>Mandatory</Write>
+        <WriteWithoutResponse>Excluded</WriteWithoutResponse>
+        <SignedWrite>Excluded</SignedWrite>
+        <ReliableWrite>Excluded</ReliableWrite>
+        <Notify>Excluded</Notify>
+        <Indicate>Excluded</Indicate>
+        <WritableAuxiliaries>Excluded</WritableAuxiliaries>
+        <Broadcast>Excluded</Broadcast>
+      </Properties>
+    </Characteristic>
+
+  </Characteristics>
+</Service>

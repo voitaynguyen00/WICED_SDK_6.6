@@ -1,0 +1,358 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2014 Cypress Semiconductor. All rights reserved. -->
+<Service xsi:noNamespaceSchemaLocation="http://schemas.bluetooth.org/Documents/service.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="Thermostat Service" type="public.hap.service.thermostat" uuid="91 52 76 bb 26 00 00 80 00 10 00 00 4a 00 00 00">
+  <InformativeText>
+    <Abstract>
+      This service describes a thermostat.
+    </Abstract>
+    <Summary>
+      TODO: Summary
+    </Summary>
+  </InformativeText>
+  <Dependencies>
+    <Dependency>TODO: This service has no dependencies on other GATT-based services.</Dependency>
+  </Dependencies>
+  <GATTRequirements>
+    <Requirement subProcedure="Read Characteristic Value">Mandatory</Requirement>
+    <Requirement subProcedure="Write Characteristic Value">Mandatory</Requirement>
+    <Requirement subProcedure="Indications">Mandatory</Requirement>
+    <Requirement subProcedure="Read Characteristic Descriptors">Mandatory</Requirement>
+  </GATTRequirements>
+  <Transports>
+    <Classic>false</Classic>
+    <LowEnergy>true</LowEnergy>
+  </Transports>
+  <ErrorCodes/>
+  <Characteristics>
+
+    <Characteristic name="Service Instance" type="public.hap.characteristic.service_instance">
+      <InformativeText>This characteristic is used to identify instances of services used with HomeKit. The value of this characteristic is a 16-bit unsigned integer encoded as 2-byte little endian integer.</InformativeText>
+      <Requirement>Mandatory</Requirement>
+      <Properties>
+        <Read>Mandatory</Read>
+        <Write>Excluded</Write>
+        <WriteWithoutResponse>Excluded</WriteWithoutResponse>
+        <SignedWrite>Excluded</SignedWrite>
+        <ReliableWrite>Excluded</ReliableWrite>
+        <Notify>Excluded</Notify>
+        <Indicate>Excluded</Indicate>
+        <WritableAuxiliaries>Excluded</WritableAuxiliaries>
+        <Broadcast>Excluded</Broadcast>
+      </Properties>
+    </Characteristic>
+
+    <Characteristic name="Current Heating Cooling State" type="public.hap.characteristic.heating_cooling.current">
+      <InformativeText>This characteristic describes the current mode of a device that supports cooling or heading its environment. e.g. a thermostat is "heading" a room to 75 degrees Fahrenheit.</InformativeText>
+      <Requirement>Mandatory</Requirement>
+      <Properties>
+        <Read>Mandatory</Read>
+        <Write>Mandatory</Write>
+        <WriteWithoutResponse>Excluded</WriteWithoutResponse>
+        <SignedWrite>Excluded</SignedWrite>
+        <ReliableWrite>Excluded</ReliableWrite>
+        <Notify>Excluded</Notify>
+        <Indicate>Mandatory</Indicate>
+        <WritableAuxiliaries>Excluded</WritableAuxiliaries>
+        <Broadcast>Excluded</Broadcast>
+      </Properties>
+      <Descriptors>
+        <Descriptor name="Characteristic Instance ID" type="public.hap.descriptor.characteristic_instance_id">
+          <Requirement>Mandatory</Requirement>
+          <Properties>
+            <Read>Mandatory</Read>
+            <Write>Excluded</Write>
+          </Properties>
+        </Descriptor>
+      <Descriptor name="Client Characteristic Configuration" type="org.bluetooth.descriptor.gatt.client_characteristic_configuration">
+                    <Requirement>Mandatory</Requirement>
+                    <Properties>
+                        <Read>Mandatory</Read>
+                        <Write>Mandatory</Write>
+                    </Properties>
+                </Descriptor>
+            </Descriptors>
+    </Characteristic>
+
+    <Characteristic name="Target Heating Cooling State" type="public.hap.characteristic.heating_cooling.target">
+      <InformativeText>This characteristic describes the target mode of a device that supports heating/cooling, e.g. a thermostat.</InformativeText>
+      <Requirement>Mandatory</Requirement>
+      <Properties>
+        <Read>Mandatory</Read>
+        <Write>Mandatory</Write>
+        <WriteWithoutResponse>Excluded</WriteWithoutResponse>
+        <SignedWrite>Excluded</SignedWrite>
+        <ReliableWrite>Excluded</ReliableWrite>
+        <Notify>Excluded</Notify>
+        <Indicate>Mandatory</Indicate>
+        <WritableAuxiliaries>Excluded</WritableAuxiliaries>
+        <Broadcast>Excluded</Broadcast>
+      </Properties>
+      <Descriptors>
+        <Descriptor name="Characteristic Instance ID" type="public.hap.descriptor.characteristic_instance_id">
+          <Requirement>Mandatory</Requirement>
+          <Properties>
+            <Read>Mandatory</Read>
+            <Write>Excluded</Write>
+          </Properties>
+        </Descriptor>
+      <Descriptor name="Client Characteristic Configuration" type="org.bluetooth.descriptor.gatt.client_characteristic_configuration">
+                    <Requirement>Mandatory</Requirement>
+                    <Properties>
+                        <Read>Mandatory</Read>
+                        <Write>Mandatory</Write>
+                    </Properties>
+                </Descriptor>
+            </Descriptors>
+    </Characteristic>
+
+    <Characteristic name="Current Temperature" type="public.hap.characteristic.temperature.current">
+      <InformativeText>This characteristic describes the current temperature of the environment in Celsius. It is the responsibility of the application to convert Celsius to the appropriate temperature unit for display based on the 'Temperature Display Units' characteristic.</InformativeText>
+      <Requirement>Mandatory</Requirement>
+      <Properties>
+        <Read>Mandatory</Read>
+        <Write>Mandatory</Write>
+        <WriteWithoutResponse>Excluded</WriteWithoutResponse>
+        <SignedWrite>Excluded</SignedWrite>
+        <ReliableWrite>Excluded</ReliableWrite>
+        <Notify>Excluded</Notify>
+        <Indicate>Mandatory</Indicate>
+        <WritableAuxiliaries>Excluded</WritableAuxiliaries>
+        <Broadcast>Excluded</Broadcast>
+      </Properties>
+      <Descriptors>
+        <Descriptor name="Characteristic Instance ID" type="public.hap.descriptor.characteristic_instance_id">
+          <Requirement>Mandatory</Requirement>
+          <Properties>
+            <Read>Mandatory</Read>
+            <Write>Excluded</Write>
+          </Properties>
+        </Descriptor>
+      <Descriptor name="Client Characteristic Configuration" type="org.bluetooth.descriptor.gatt.client_characteristic_configuration">
+                    <Requirement>Mandatory</Requirement>
+                    <Properties>
+                        <Read>Mandatory</Read>
+                        <Write>Mandatory</Write>
+                    </Properties>
+                </Descriptor>
+            </Descriptors>
+    </Characteristic>
+
+    <Characteristic name="Target Temperature" type="public.hap.characteristic.temperature.target">
+      <InformativeText>This characteristic describes the target temperature in Celsius that the device is actively attempting to reach. For example, a thermostat cooling a room to "75" degrees Fahrenheit would set the target temperature value to "23.9".</InformativeText>
+      <Requirement>Mandatory</Requirement>
+      <Properties>
+        <Read>Mandatory</Read>
+        <Write>Mandatory</Write>
+        <WriteWithoutResponse>Excluded</WriteWithoutResponse>
+        <SignedWrite>Excluded</SignedWrite>
+        <ReliableWrite>Excluded</ReliableWrite>
+        <Notify>Excluded</Notify>
+        <Indicate>Mandatory</Indicate>
+        <WritableAuxiliaries>Excluded</WritableAuxiliaries>
+        <Broadcast>Excluded</Broadcast>
+      </Properties>
+      <Descriptors>
+        <Descriptor name="Characteristic Instance ID" type="public.hap.descriptor.characteristic_instance_id">
+          <Requirement>Mandatory</Requirement>
+          <Properties>
+            <Read>Mandatory</Read>
+            <Write>Excluded</Write>
+          </Properties>
+        </Descriptor>
+      <Descriptor name="Client Characteristic Configuration" type="org.bluetooth.descriptor.gatt.client_characteristic_configuration">
+                    <Requirement>Mandatory</Requirement>
+                    <Properties>
+                        <Read>Mandatory</Read>
+                        <Write>Mandatory</Write>
+                    </Properties>
+                </Descriptor>
+            </Descriptors>
+    </Characteristic>
+
+    <Characteristic name="Temperature Display Units" type="public.hap.characteristic.temperature.units">
+      <InformativeText>This characteristic describes units of temperature used for presentation purposes (e.g. the units of temperature displayed on the screen).</InformativeText>
+      <Requirement>Mandatory</Requirement>
+      <Properties>
+        <Read>Mandatory</Read>
+        <Write>Mandatory</Write>
+        <WriteWithoutResponse>Excluded</WriteWithoutResponse>
+        <SignedWrite>Excluded</SignedWrite>
+        <ReliableWrite>Excluded</ReliableWrite>
+        <Notify>Excluded</Notify>
+        <Indicate>Mandatory</Indicate>
+        <WritableAuxiliaries>Excluded</WritableAuxiliaries>
+        <Broadcast>Excluded</Broadcast>
+      </Properties>
+      <Descriptors>
+        <Descriptor name="Characteristic Instance ID" type="public.hap.descriptor.characteristic_instance_id">
+          <Requirement>Mandatory</Requirement>
+          <Properties>
+            <Read>Mandatory</Read>
+            <Write>Excluded</Write>
+          </Properties>
+        </Descriptor>
+      <Descriptor name="Client Characteristic Configuration" type="org.bluetooth.descriptor.gatt.client_characteristic_configuration">
+                    <Requirement>Mandatory</Requirement>
+                    <Properties>
+                        <Read>Mandatory</Read>
+                        <Write>Mandatory</Write>
+                    </Properties>
+                </Descriptor>
+            </Descriptors>
+    </Characteristic>
+
+    <Characteristic name="Cooling Threshold Temperature" type="public.hap.characteristic.temperature.cooling_threshold">
+      <InformativeText>This characteristic describes the cooling threshold in Celsius for devices that support simultaneously heating and cooling. The value of this characteristic represents the 'maximum temperature' that must be reached before cooling is turned on.</InformativeText>
+      <Requirement>Optional</Requirement>
+      <Properties>
+        <Read>Mandatory</Read>
+        <Write>Mandatory</Write>
+        <WriteWithoutResponse>Excluded</WriteWithoutResponse>
+        <SignedWrite>Excluded</SignedWrite>
+        <ReliableWrite>Excluded</ReliableWrite>
+        <Notify>Excluded</Notify>
+        <Indicate>Mandatory</Indicate>
+        <WritableAuxiliaries>Excluded</WritableAuxiliaries>
+        <Broadcast>Excluded</Broadcast>
+      </Properties>
+      <Descriptors>
+        <Descriptor name="Characteristic Instance ID" type="public.hap.descriptor.characteristic_instance_id">
+          <Requirement>Mandatory</Requirement>
+          <Properties>
+            <Read>Mandatory</Read>
+            <Write>Excluded</Write>
+          </Properties>
+        </Descriptor>
+      <Descriptor name="Client Characteristic Configuration" type="org.bluetooth.descriptor.gatt.client_characteristic_configuration">
+                    <Requirement>Mandatory</Requirement>
+                    <Properties>
+                        <Read>Mandatory</Read>
+                        <Write>Mandatory</Write>
+                    </Properties>
+                </Descriptor>
+            </Descriptors>
+    </Characteristic>
+
+    <Characteristic name="Current Relative Humidity" type="public.hap.characteristic.relative_humidity.current">
+      <InformativeText>This characteristic describes the current relative humidity of the environment that contains the device. THe value is expressed in percentage (%).</InformativeText>
+      <Requirement>Optional</Requirement>
+      <Properties>
+        <Read>Mandatory</Read>
+        <Write>Mandatory</Write>
+        <WriteWithoutResponse>Excluded</WriteWithoutResponse>
+        <SignedWrite>Excluded</SignedWrite>
+        <ReliableWrite>Excluded</ReliableWrite>
+        <Notify>Excluded</Notify>
+        <Indicate>Mandatory</Indicate>
+        <WritableAuxiliaries>Excluded</WritableAuxiliaries>
+        <Broadcast>Excluded</Broadcast>
+      </Properties>
+      <Descriptors>
+        <Descriptor name="Characteristic Instance ID" type="public.hap.descriptor.characteristic_instance_id">
+          <Requirement>Mandatory</Requirement>
+          <Properties>
+            <Read>Mandatory</Read>
+            <Write>Excluded</Write>
+          </Properties>
+        </Descriptor>
+      <Descriptor name="Client Characteristic Configuration" type="org.bluetooth.descriptor.gatt.client_characteristic_configuration">
+                    <Requirement>Mandatory</Requirement>
+                    <Properties>
+                        <Read>Mandatory</Read>
+                        <Write>Mandatory</Write>
+                    </Properties>
+                </Descriptor>
+            </Descriptors>
+    </Characteristic>
+
+    <Characteristic name="Heating Threshold Temperature" type="public.hap.characteristic.temperature.heating_threshold">
+      <InformativeText>This characteristic describes the heating threshold in Celsius for devices that support simultaneous heating and cooling. The value of this characteristic represents the 'minimum temperature' that must be reached before heating is turned on.</InformativeText>
+      <Requirement>Optional</Requirement>
+      <Properties>
+        <Read>Mandatory</Read>
+        <Write>Mandatory</Write>
+        <WriteWithoutResponse>Excluded</WriteWithoutResponse>
+        <SignedWrite>Excluded</SignedWrite>
+        <ReliableWrite>Excluded</ReliableWrite>
+        <Notify>Excluded</Notify>
+        <Indicate>Mandatory</Indicate>
+        <WritableAuxiliaries>Excluded</WritableAuxiliaries>
+        <Broadcast>Excluded</Broadcast>
+      </Properties>
+      <Descriptors>
+        <Descriptor name="Characteristic Instance ID" type="public.hap.descriptor.characteristic_instance_id">
+          <Requirement>Mandatory</Requirement>
+          <Properties>
+            <Read>Mandatory</Read>
+            <Write>Excluded</Write>
+          </Properties>
+        </Descriptor>
+      <Descriptor name="Client Characteristic Configuration" type="org.bluetooth.descriptor.gatt.client_characteristic_configuration">
+                    <Requirement>Mandatory</Requirement>
+                    <Properties>
+                        <Read>Mandatory</Read>
+                        <Write>Mandatory</Write>
+                    </Properties>
+                </Descriptor>
+            </Descriptors>
+    </Characteristic>
+
+    <Characteristic name="Name" type="public.hap.characteristic.name">
+      <InformativeText>This characteristic describes a name.</InformativeText>
+      <Requirement>Optional</Requirement>
+      <Properties>
+        <Read>Mandatory</Read>
+        <Write>Mandatory</Write>
+        <WriteWithoutResponse>Excluded</WriteWithoutResponse>
+        <SignedWrite>Excluded</SignedWrite>
+        <ReliableWrite>Excluded</ReliableWrite>
+        <Notify>Excluded</Notify>
+        <Indicate>Excluded</Indicate>
+        <WritableAuxiliaries>Excluded</WritableAuxiliaries>
+        <Broadcast>Excluded</Broadcast>
+      </Properties>
+      <Descriptors>
+        <Descriptor name="Characteristic Instance ID" type="public.hap.descriptor.characteristic_instance_id">
+          <Requirement>Mandatory</Requirement>
+          <Properties>
+            <Read>Mandatory</Read>
+            <Write>Excluded</Write>
+          </Properties>
+        </Descriptor>
+      </Descriptors>
+    </Characteristic>
+
+    <Characteristic name="Target Relative Humidity" type="public.hap.characteristic.relative_humidity.target">
+      <InformativeText>This characteristic describes the target relative humidity that the device is actively attempting to reach. The value is expressed in percentage (%).</InformativeText>
+      <Requirement>Optional</Requirement>
+      <Properties>
+        <Read>Mandatory</Read>
+        <Write>Mandatory</Write>
+        <WriteWithoutResponse>Excluded</WriteWithoutResponse>
+        <SignedWrite>Excluded</SignedWrite>
+        <ReliableWrite>Excluded</ReliableWrite>
+        <Notify>Excluded</Notify>
+        <Indicate>Mandatory</Indicate>
+        <WritableAuxiliaries>Excluded</WritableAuxiliaries>
+        <Broadcast>Excluded</Broadcast>
+      </Properties>
+      <Descriptors>
+        <Descriptor name="Characteristic Instance ID" type="public.hap.descriptor.characteristic_instance_id">
+          <Requirement>Mandatory</Requirement>
+          <Properties>
+            <Read>Mandatory</Read>
+            <Write>Excluded</Write>
+          </Properties>
+        </Descriptor>
+      <Descriptor name="Client Characteristic Configuration" type="org.bluetooth.descriptor.gatt.client_characteristic_configuration">
+                    <Requirement>Mandatory</Requirement>
+                    <Properties>
+                        <Read>Mandatory</Read>
+                        <Write>Mandatory</Write>
+                    </Properties>
+                </Descriptor>
+            </Descriptors>
+    </Characteristic>
+
+  </Characteristics>
+</Service>

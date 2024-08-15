@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2015 Cypress Semiconductor. All rights reserved. -->
+<Descriptor xsi:noNamespaceSchemaLocation="http://schemas.bluetooth.org/Documents/descriptor.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="Characteristic Instance ID" type="public.hap.descriptor.characteristic_instance_id" uuid="9a 93 96 d7 bd 6a d9 b5 16 46 d2 81 fe f0 46 dc">
+    <InformativeText>
+        <Abstract>
+            The accessory must expose the instance ID of each characteristic in the Characteristic Instance ID descriptor. The value of the descriptor is a 16-bit unsigned integer encoded as a 2-byte little endian integer.
+        </Abstract>
+        <InformativeDisclaimer/>
+        <Summary>
+            The value must support always being read in the clear, i.e. with and without a security session.
+        </Summary>
+    </InformativeText>
+    <Value>
+        <Field name="Characteristic Instance ID">
+            <Requirement>Mandatory</Requirement>
+            <Format>uint16</Format>
+        </Field>
+    </Value>
+</Descriptor>

@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "C:\\Users\\annadats\\Documents\\WICED\\WICED-SDK-3.6.2\\WICED-SDK\\apps\\akc_collar\\peerapps\\Android\\LeBSGClient\\app\\build\\intermediates\\res\\merged\\debug\\layout\\main.xml",
+        "source": "C:\\Users\\annadats\\Documents\\WICED\\WICED-SDK-3.6.2\\WICED-SDK\\apps\\akc_collar\\peerapps\\Android\\LeBSGClient\\app\\src\\main\\res\\layout\\main.xml"
+    },
+    {
+        "merged": "C:\\Users\\annadats\\Documents\\WICED\\WICED-SDK-3.6.2\\WICED-SDK\\apps\\akc_collar\\peerapps\\Android\\LeBSGClient\\app\\build\\intermediates\\res\\merged\\debug\\layout\\device_element.xml",
+        "source": "C:\\Users\\annadats\\Documents\\WICED\\WICED-SDK-3.6.2\\WICED-SDK\\apps\\akc_collar\\peerapps\\Android\\LeBSGClient\\app\\src\\main\\res\\layout\\device_element.xml"
+    },
+    {
+        "merged": "C:\\Users\\annadats\\Documents\\WICED\\WICED-SDK-3.6.2\\WICED-SDK\\apps\\akc_collar\\peerapps\\Android\\LeBSGClient\\app\\build\\intermediates\\res\\merged\\debug\\layout\\devicepicker_listitem.xml",
+        "source": "C:\\Users\\annadats\\Documents\\WICED\\WICED-SDK-3.6.2\\WICED-SDK\\apps\\akc_collar\\peerapps\\Android\\LeBSGClient\\app\\src\\main\\res\\layout\\devicepicker_listitem.xml"
+    },
+    {
+        "merged": "C:\\Users\\annadats\\Documents\\WICED\\WICED-SDK-3.6.2\\WICED-SDK\\apps\\akc_collar\\peerapps\\Android\\LeBSGClient\\app\\build\\intermediates\\res\\merged\\debug\\layout\\devicepicker_layout.xml",
+        "source": "C:\\Users\\annadats\\Documents\\WICED\\WICED-SDK-3.6.2\\WICED-SDK\\apps\\akc_collar\\peerapps\\Android\\LeBSGClient\\app\\src\\main\\res\\layout\\devicepicker_layout.xml"
+    }
+]
